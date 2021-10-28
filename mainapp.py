@@ -20,7 +20,7 @@ class AppInitializer():
     - it adds the namespaces to the api object
     '''
 
-    def create_app(self):
+    def create_app():
         '''
         initiates the app, api and CORS object for the REST-Api
         Params:
