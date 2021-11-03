@@ -1,12 +1,13 @@
 import unittest
-from mainapp import AppInitializer, app
 
+from mainapp import AppInitializer
 
 
 class FlaskrestxTest(unittest.TestCase):
     """
     Unit tests defined for mainapp.py
     """
+
     def setUp(self):
         app = AppInitializer.create_app()
         app.config['TESTING'] = True
