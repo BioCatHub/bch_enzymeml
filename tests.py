@@ -12,10 +12,13 @@ class FlaskrestxTest(unittest.TestCase):
         app = AppInitializer.create_app()
         app.config['TESTING'] = True
         app.config['DEBUG'] = False
-        self.client = app.test_client()
+        self.app = app.test_client()
+
+    def tearDown(self):
+        pass
 
     def test_create_app(self):
-        response = self.client.get('/', follow_redirects=True)
+        response = self.app.get('/', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
 
 
