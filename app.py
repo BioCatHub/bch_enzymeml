@@ -6,7 +6,7 @@ from flask_cors import CORS
 from assets.configurations import Configurations
 # Selbst definierten Packages importiert
 
-class AppInitializer():
+class AppInitializer(): # TODO #2
     '''
     Intatiates the app and api classes required to run the REST-API
 
