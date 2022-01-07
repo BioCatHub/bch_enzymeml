@@ -9,7 +9,7 @@ import libcombine
 
 class OmexBuilder:
     ''''
-        This class creates empty omex archieves, add the biocathub model and stores the archieve locally
+        This class creates empty omex archieves, adds the biocathub model and stores the archieve locally in the ./assets folder
 
         attr:
             bch_model: dict
@@ -46,7 +46,7 @@ class OmexBuilder:
                 None
             
             return:
-                ?
+                None
         '''
         archive = libcombine.CombineArchive()
         self.save_bch_model_local()

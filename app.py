@@ -5,6 +5,7 @@ from flask_cors import CORS
 # Hier werden Python eigenen Libraries importiert
 from assets.configurations import Configurations
 from bchenzymml.write_read_enzymeml.write_enzymeml.write_enzymeml import namespace as write_ns
+from bchenzymml.write_read_enzymeml.read_enzymeml.read_enzymeml import namespace as read_ns
 # Selbst definierten Packages importiert
 
 class AppInitializer(): # TODO #2
@@ -32,6 +33,7 @@ class AppInitializer(): # TODO #2
         app = Flask(__name__)
         api = Api(app)
         api.add_namespace(write_ns)
+        api.add_namespace(read_ns)
         config = Configurations.get_configuarations()
         CORS(app, resources=config["CORS"])
         return app
