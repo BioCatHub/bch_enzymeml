@@ -13,10 +13,15 @@ namespace = Namespace("api/read_enzymeml", description="Route whicht reads Enzym
 
 @namespace.route("")
 class EnzymeMLReader(Resource):
+    '''
+        Accepts post request to read in EnzymeML documents. The documents are extracted via the request model and stored locally in assets/test.omex
+        !!Note!!! 
+        The file needs to be stored locally, because the libcombine library (needed to read and write EnzymeML documents) is not only accepts file paths and no bytestreams!
+    '''
     @namespace.doc()
     def post(self):
 
-        archive = request.files["enzymeMLDocument"]
+        archive = request.files["file"]
         if os.path.exists("file.omex"):
             os.remove("file.omex")
             archive.save('assets/test.omex')

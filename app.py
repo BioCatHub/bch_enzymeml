@@ -42,6 +42,6 @@ class AppInitializer(): # TODO #2
 if __name__ == '__main__':
     Newapp = AppInitializer
     app = Newapp.create_app()
-    app.run(debug=True)
+    app.run(debug=True, port=8000)
     
 

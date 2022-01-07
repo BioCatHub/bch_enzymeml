@@ -38,6 +38,7 @@ class OmexBuilder:
         with open("assets/biocathub.json", "w") as bch_model_file:
             bch_model_json = json.dumps(self.bch_model)
             bch_model_file.write(bch_model_json)
+            print(self.bch_model)
     
     def create_omex_archive(self):
         '''
