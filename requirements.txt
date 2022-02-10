@@ -1,3 +1,4 @@
 flask==1.1.2
 flask-restx == 0.5.1
 python-libcombine == 0.2.7
+pytest ==  6.2.5
