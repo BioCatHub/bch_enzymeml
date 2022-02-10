@@ -1,0 +1,20 @@
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+        # Checkout the latest code from the repo
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        # Display the Python version being used
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+        # Install the package using the setup.py
+      - name: Install requirements
+        run: pip3 install -r Requirements.txt
+        # Run the tests. I'm using pytest and the file is in the tests directory.
+      - name: Run tests
+        run: pytest -v
