@@ -14,6 +14,7 @@ class Generals(BaseModel):
     created: str
     modified: str
     vessels:dict
+    units:dict
     class Config:
             orm_mode = True
 

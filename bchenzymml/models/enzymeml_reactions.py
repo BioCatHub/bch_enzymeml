@@ -17,13 +17,11 @@ class ReactionDetail(BaseModel):
     educts:Optional[List]
     products:Optional[List]
     modifiers:Optional[List]
-
     class Config:
             orm_mode = True
 
 class ReactionContainer(BaseModel):
-    class CreatorContainer(BaseModel):
-        __root__: Dict[str, ReactionDetail]
+    __root__: Dict[str, ReactionDetail]
 
 class Reaction(BaseModel):
     reactions:ReactionContainer
@@ -34,5 +32,8 @@ class ReagentDetail(BaseModel):
     stoichiometry: float
     constant: bool
     ontology: str
+
+    class Config:
+            orm_mode = True
 
 
