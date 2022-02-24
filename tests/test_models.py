@@ -11,7 +11,7 @@ from bchenzymml.models.enzymeml_units import UnitsDetails, UnitContainer, Unit, 
 
 from bchenzymml.models.enzymeml_classes import Generalscls, Creatorcls, Vesselcls, Proteincls, Reactantcls, Reactioncls, ReagentDetailscls, Reactioncls, ReagentDetailscls,UnitDetailscls, CustomUnitcls 
 
-
+from bchenzymml.write_read_enzymeml.write_enzymeml.unit_builder import UnitBuilder
 
 def test_creator():
     creator_details = CreatorDetail.from_orm(Creatorcls("Jan", "jansen", "sdads", "asddsa"))
@@ -20,7 +20,7 @@ def test_creator():
     print(creator1.dict)
 
 def test_vessel():
-    vessel_details = VesselDetail.from_orm(Vesselcls("eppi", 1, "ml", True, "v1", "asd", "sffdfd", "dsffd"))
+    vessel_details = VesselDetail.from_orm(Vesselcls("eppi", 1, "mL", True, "v1", "asd", "sffdfd", "dsffd"))
     vessel_container = VesselContainer(__root__={"vessel1_id":vessel_details})
     vessel = Vessel(vessel=vessel_container)
     print(vessel.dict())
@@ -57,6 +57,8 @@ def test_reagents():
     reagent_list.append(reagent_details)
     return reagent_list
 
+
+'''
 def test_unit():
     emtpy_list = []
     emtpy_list.append(CustomUnitSpecifier.from_orm(CustomUnitcls("litre", -3, 0, 0)))
@@ -64,20 +66,28 @@ def test_unit():
     unit_container = UnitContainer(__root__={"ml":unit_details})
     units = Unit(units=unit_container)
     return unit_container
+'''
+
+def test_unit():
+    #unit = UnitBuilder().build_ml()
+    all_units = UnitBuilder().build_units()
+    #print("Alle Units sind", all_units)
+    #print("die unt ist", unit)
+    return all_units
+
 
 
 def test_generals():
 
     vessels_general = test_vessel()
     units = test_unit()
-    print("die units sind:", units.dict())
+    
     v = vessels_general.__root__
-    u = units.__root__
-    generals = Generals.from_orm(Generalscls("decarboxylation", "23232", "www.example.com", "doi:10.101012323","10.01.2022", "11.01.2022", v, u))
+    generals = Generals.from_orm(Generalscls("decarboxylation", "23232", "www.example.com", "doi:10.101012323","10.01.2022", "11.01.2022", v, units))
         
     
     test_dict = generals.dict()
-    print(test_dict)
+    print("Das dict ist", test_dict)
 
     assert type(test_dict) == dict
     return test_dict

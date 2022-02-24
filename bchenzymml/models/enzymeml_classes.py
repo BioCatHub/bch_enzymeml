@@ -173,12 +173,12 @@ class ReagentDetailscls:
 
 class UnitDetailscls:
     def __init__(self,
-                 name,
-                 id,
-                 meta_id,
-                 units,
-                 ontology,
-                 ):
+				name,
+				id,
+				meta_id,
+				units,
+				ontology,
+				):
         self.name = name
         self.id = id
         self.meta_id = meta_id
