@@ -57,7 +57,7 @@ class UnitBuilder:
 
         unit_list = []
         unit_list.append(CustomUnitSpecifier.from_orm(CustomUnitcls("litre", -3, 0, 0)))
-        ml_details = UnitsDetails.from_orm(UnitDetailscls("mL", "mL", "mL", unit_list, ""))
+        ml_details = UnitsDetails.from_orm(UnitDetailscls("mL", "u0", "meta_u0", unit_list, ""))
         ml_container = UnitContainer(__root__={"mL":ml_details})
 
         return ml_details
@@ -65,7 +65,7 @@ class UnitBuilder:
     def build_ul(self):
         unit_list = []
         unit_list.append(CustomUnitSpecifier.from_orm(CustomUnitcls("litre", -6, 0, 0)))
-        ul_details = UnitsDetails.from_orm(UnitDetailscls("uL", "uL", "uL", unit_list, ""))
+        ul_details = UnitsDetails.from_orm(UnitDetailscls("uL", "u1", "meta_u1", unit_list, ""))
         ul_container = UnitContainer(__root__={"uL":ul_details})
         return ul_details
 
@@ -74,7 +74,7 @@ class UnitBuilder:
         unit_list = []
         unit_list.append(CustomUnitSpecifier.from_orm(CustomUnitcls("litre", 0, 0, -1)))
         unit_list.append(CustomUnitSpecifier.from_orm(CustomUnitcls("mole", 0, 0, 0)))
-        mol_L_details = UnitsDetails.from_orm(UnitDetailscls(name, name, name, unit_list, ""))
+        mol_L_details = UnitsDetails.from_orm(UnitDetailscls("mol/L", "u2", "meta_u2", unit_list, ""))
         mol_L_container = UnitContainer(__root__={name:mol_L_details})
         return mol_L_details
     
