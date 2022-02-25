@@ -5,9 +5,6 @@ token = {'access_token': 'h2VjvzgwrHAFLrQR3L0OhlsYPI8YE6H7VVHlTKWXfyCexOcIH0h8cM
 url = "https://sandbox.zenodo.org/api/deposit/depositions"
 
 
-
-
-
 class ZenodoConnector:
     '''
         This class builds the direct connection to Zenodo. It can send request to write or read entries in Zenodo database
@@ -16,10 +13,12 @@ class ZenodoConnector:
         args: 
             url:string = Url of the Zenodo endpoint
             token: string = Token used to authenticate in Zenodo
+            file:bytestring EnzymeML file to be uploaded to Zenodo
     '''
-    def __init__(self, url, token):
+    def __init__(self, url, token, file):
         self.url = url
         self.token = token
+        self.file = file
     
     def get_all_entries(self):
         r = requests.get(self.url,
@@ -32,25 +31,26 @@ class ZenodoConnector:
                             json={})
         print(r.json())
     
-    def publish_enzymeml(self, file, data, headers):
+    def publish_enzymeml(self,data, headers):
         r = requests.post(self.url,
                         params=self.token,
                         headers=headers,
                         data = json.dumps(data),
-                        #files=file,
                         )
-        print(r.json())
+        resp = r.json()     
+        return resp["id"] 
 
-    def publish_file(self, file):
-        r = requests.post(self.url+"/1022337/files?access_token=h2VjvzgwrHAFLrQR3L0OhlsYPI8YE6H7VVHlTKWXfyCexOcIH0h8cMzZAtBq",
-                            files=file)
+    def publish_file(self):
+        id = self.publish_enzymeml(data_test, headers)
+        r = requests.post(self.url+"/{}/files?access_token={}".format(id, self.token["access_token"]),
+                            files=self.file)
         #r.json()
 
 
 
 data_test = {
     "metadata": {
-        "title": "New_upload!",
+        "title": "New EnzymeML!",
         "upload_type": "dataset",
         "description": "EnzymeML document",
         "creators": [
@@ -69,11 +69,14 @@ data_obj={"metadata":{"upload_type":"dataset",
             "title":"Super_title"}}
 
 
-connector = ZenodoConnector(url, token)
-#connector.get_all_entries()
-#connector.create_empty_deposit()
-connector.publish_enzymeml(upl_file, data_test, headers)
-#connector.publish_file(upl_file)
+connector = ZenodoConnector(url, token, upl_file)
+connector.publish_file()
+
+
+name ="Jürgen"
+age = "22"
+new = "my name is {}/{}".format(name, age) 
+print(new)
 
 
     
