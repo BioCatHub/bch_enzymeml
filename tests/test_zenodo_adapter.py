@@ -1,0 +1,1 @@
+import bchenzymml.zenodo_adapter.upload_enzymeml_to_zenodo as upload_adapter
