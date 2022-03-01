@@ -5,4 +5,3 @@ python-libcombine == 0.2.7
 pytest ==  6.2.5
 pydantic == 1.8.2
 requests == 2.26.0
-json
