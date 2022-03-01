@@ -15,9 +15,7 @@ class ZenodoConnector:
             token: string = Token used to authenticate in Zenodo
             file:bytestring EnzymeML file to be uploaded to Zenodo
     '''
-    def __init__(self, url, token, file):
-        self.url = url
-        self.token = token
+    def __init__(self, file):
         self.file = file #TODO #15
     
     
@@ -34,13 +32,13 @@ class ZenodoConnector:
             payload: List; List containing entries in the Zenodo account
 
         '''
-        r = requests.get(self.url,
-                        params=self.token)
+        r = requests.get(url,
+                        params=token)
         return r.json()
 
     def create_empty_deposit(self):
-        r = requests.post(self.url,
-                            params=self.token,
+        r = requests.post(url,
+                            params=token,
                             json={})
     
     def create_new_deposition(self,data, headers):
@@ -59,15 +57,15 @@ class ZenodoConnector:
             -------
 
         '''
-        r = requests.post(self.url,
-                        params=self.token,
+        r = requests.post(url,
+                        params=token,
                         headers=headers,
                         data = json.dumps(data),
                         )
         response = r.json()     
         return response["id"] 
 
-    def upload_enzymeml(self, data, headers):
+    def upload_enzymeml(self, data, headers, file):
         '''
             Uploads a new EnzymeML document to Zenodo. Therefore this method has two steps:
                 1. It creates a new Deposition by calling the create_new_deposition method in Zenodo and adds metadata about the experiment in the EnzymeML document
@@ -84,9 +82,9 @@ class ZenodoConnector:
         '''
 
 
-        id = self.create_new_deposition(data_test, headers)
-        r = requests.post(self.url+"/{}/files?access_token={}".format(id, self.token["access_token"]),
-                            files=self.file)
+        id = self.create_new_deposition(data, headers)
+        r = requests.post(url+"/{}/files?access_token={}".format(id, token["access_token"]),
+                            files=file)
         return r.json()
 
 
@@ -96,7 +94,7 @@ class ZenodoConnector:
 
     
     def get_individual_entry(self, id):
-        r = requests.get("https://sandbox.zenodo.org/api/deposit/depositions/1023538/files", params=self.token)
+        r = requests.get("https://sandbox.zenodo.org/api/deposit/depositions/1023538/files", params=token)
         enzml = self.download_enzymeml_from_zenodo('https://sandbox.zenodo.org/api/files/e865a98e-6f82-445a-aaf2-14304547f033/2021-5-4ExperimentN.omex')
         new_file = open("NewEnzymeML.omex", "wb")
         new_file.write(enzml)
@@ -105,7 +103,7 @@ class ZenodoConnector:
 
     
     def download_enzymeml_from_zenodo(self, download_url):
-        r = requests.get(download_url, params=self.token)
+        r = requests.get(download_url, params=token)
         print(r.content)        
         return r.content
 
@@ -132,8 +130,8 @@ data_obj={"metadata":{"upload_type":"dataset",
             "title":"Super_title"}}
 
 
-connector = ZenodoConnector(url, token, upl_file)
-connector.upload_enzymeml(data_test, headers)
+connector = ZenodoConnector(upl_file)
+connector.upload_enzymeml(data_test, headers, upl_file)
 
 #data_sets = connector.get_all_entries()
 #for i in data_sets:

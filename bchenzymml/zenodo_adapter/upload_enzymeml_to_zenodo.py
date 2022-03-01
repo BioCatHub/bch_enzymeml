@@ -29,15 +29,16 @@ class EnzymeMLUploader:
         self.metadata = metadata
 
     def upload_enzyme_ml(self):
-        upload = zc.ZenodoConnector(url, token, self.enzyme_ml)
-        self.read_in_binary(self.enzyme_ml)
-        upload.upload_enzymeml(data_test, headers)
+        upload = zc.ZenodoConnector(self.enzyme_ml)
+        file_payload = self.read_in_binary()
+        upl = upload.upload_enzymeml(data_test, headers, file_payload)
+        return upl
+
     
     def read_in_binary(self):
         '''
             Reads in the Bytestring of the EnzymeML document
         '''
-
         enzyme_ml_binary = open(test_file, 'rb')
         upload_dict = {"file":enzyme_ml_binary}
         return upload_dict
