@@ -21,7 +21,7 @@ def test_creator():
 
 def test_vessel():
     vessel_details = VesselDetail.from_orm(Vesselcls("eppi", 1, "mL", True, "v1", "asd", "sffdfd", "dsffd"))
-    vessel_container = VesselContainer(__root__={"vessel1_id":vessel_details})
+    vessel_container = VesselContainer(__root__={"vessel1":vessel_details})
     vessel = Vessel(vessel=vessel_container)
     #print(vessel.dict())
     return vessel_container
@@ -58,7 +58,7 @@ def test_reagents():
     return reagent_list
 
 
-
+'''
 def test_unit():
     emtpy_list = []
     emtpy_list.append(CustomUnitSpecifier.from_orm(CustomUnitcls("litre", -3, 0, 0)))
@@ -67,7 +67,16 @@ def test_unit():
     units = Unit(units=unit_container)
     print("Der unit container", unit_container.__root__)
     return unit_container.__root__
+'''
 
+
+def test_unit():
+    emtpy_list = []
+    emtpy_list.append(CustomUnitSpecifier.from_orm(CustomUnitcls("litre", -3, 0, 0)))
+    unit_details = UnitsDetails.from_orm(UnitDetailscls("mL", "u0", "meta_u0", emtpy_list, "SBO:0000"))
+    unit_container = UnitContainer(__root__={"mL":unit_details})
+    units = Unit(units=unit_container)
+    return unit_container.__root__
 
 '''
 def test_unit():
@@ -85,7 +94,7 @@ def test_generals():
     units = test_unit()
     
     v = vessels_general.__root__
-    generals = Generals.from_orm(Generalscls("decarboxylation", "23232", "www.example.com", "doi:10.101012323","10.01.2022", "11.01.2022", v, units))
+    generals = Generals.from_orm(Generalscls("decarboxylation", "23232", "www.example.com", "doi:10.101012323","10.01.2022", "11.01.2022", v))
         
     
     test_dict = generals.dict()

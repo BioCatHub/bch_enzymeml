@@ -8,7 +8,8 @@ class Generalscls:
                  created: str,
                  modified: str,
                  vessels: dict,
-                 units: dict):
+                 #units: dict
+                  ):
 
         self.name = name
         self.pubmedid = pubmedid
@@ -17,7 +18,7 @@ class Generalscls:
         self.created = created
         self.modified = modified
         self.vessels = vessels
-        self.units = units
+        #self.units = units
 
 
 class Creatorcls:
