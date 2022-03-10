@@ -68,20 +68,29 @@ class UnitBuilder:
         ul_details = UnitsDetails.from_orm(UnitDetailscls("uL", "u1", "meta_u1", unit_list, ""))
         ul_container = UnitContainer(__root__={"uL":ul_details})
         return ul_details
-
+    '''
     def build_mol_L(self):
         name = "mol/L"
         unit_list = []
-        unit_list.append(CustomUnitSpecifier.from_orm(CustomUnitcls("litre", 0, 0, -1)))
-        unit_list.append(CustomUnitSpecifier.from_orm(CustomUnitcls("mole", 0, 0, 0)))
-        mol_L_details = UnitsDetails.from_orm(UnitDetailscls("mol/L", "u2", "meta_u2", unit_list, ""))
+        unit_list.append(CustomUnitSpecifier.from_orm(CustomUnitcls("litre", -9, 0, 0)))
+        #unit_list.append(CustomUnitSpecifier.from_orm(CustomUnitcls("mole", 0, 0, 0)))
+        mol_L_details = UnitsDetails.from_orm(UnitDetailscls("mole_l", "u2", "meta_u2", unit_list, ""))
         mol_L_container = UnitContainer(__root__={name:mol_L_details})
         return mol_L_details
-    
+    '''
+
+    def build_mol_L(self):
+        unit_list = []
+        unit_list.append(CustomUnitSpecifier.from_orm(CustomUnitcls("mole", -9, 0, 0)))
+        ul_details = UnitsDetails.from_orm(UnitDetailscls("mole", "u2", "meta_u2", unit_list, "SBO_0000472"))
+        ul_container = UnitContainer(__root__={"umol":ul_details})
+        return ul_details
+
+
     def build_units(self):
         unit_container = UnitContainer(__root__={"mL":self.build_ml(), 
                                                 "uL":self.build_ul(),
-                                                "mol/L":self.build_mol_L()})
+                                                "mole_l":self.build_mol_L()})
         
         units = Unit(units=unit_container)
         #print("Die Units in der Methode",units.dict())

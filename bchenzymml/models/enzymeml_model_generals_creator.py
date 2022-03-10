@@ -14,7 +14,14 @@ class Generals(BaseModel):
     created: str
     modified: str
     vessels:dict
-    #units:Optional[dict]
+    units:Optional[dict]
+    creators:Optional[dict]
+    proteins:Optional[dict]
+    reactants:Optional[dict]
+    reactions:Optional[dict]
+    measurements:Optional[dict]
+    files:Optional[dict]
+
     class Config:
             orm_mode = True
 

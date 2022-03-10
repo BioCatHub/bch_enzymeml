@@ -1,3 +1,6 @@
+from typing import List, Optional, Dict
+
+
 
 class Generalscls:
     def __init__(self,
@@ -8,7 +11,13 @@ class Generalscls:
                  created: str,
                  modified: str,
                  vessels: dict,
-                 #units: dict
+                 units: dict,
+                 creators:dict,
+                 proteins:dict,
+                 reactants:dict,
+                 reactions:dict,
+                 measurements:dict,
+                 files:dict
                   ):
 
         self.name = name
@@ -18,7 +27,13 @@ class Generalscls:
         self.created = created
         self.modified = modified
         self.vessels = vessels
-        #self.units = units
+        self.units = units
+        self.creators=creators
+        self.proteins = proteins
+        self.reactants = reactants
+        self.reactions = reactions
+        self.measurements = measurements
+        self.files = files
 
 
 class Creatorcls:
@@ -52,6 +67,7 @@ class Vesselcls:
         self.meta_id = meta_id
         self.uri = uri
         self.creator_id = creator_id
+        
 
 
 class Proteincls:
@@ -137,7 +153,7 @@ class Reactioncls:
                  meta_id: str,
                  uri: str,
                  creator_id: str,
-                 model: dict,
+                 #model: dict,
                  educts: list,
                  products: list,
                  modifiers: list
@@ -153,7 +169,7 @@ class Reactioncls:
         self.meta_id = meta_id
         self.uri = uri
         self.creator_id = creator_id
-        self.model = model
+        #self.model = model
         self.educts = educts
         self.products = products
         self.modifiers = modifiers
@@ -197,3 +213,38 @@ class CustomUnitcls:
         self.exponent = exponent
         self.scale = scale
         self.multiplier = multiplier
+
+
+
+class ReplicatesDetailscls:
+    def __init__(self, id:str,
+                species_id:str,
+                data_unit:str,
+                time_unit:str,
+                time:List,
+                data:List,
+                ):
+        self.id = id
+        self.species_id = species_id
+        self.data_unit = data_unit
+        self.time_unit = time_unit
+        self.time = time
+        self.data = data
+
+
+class SpeciesMeasurementDetailcls:
+    def __init__(self,
+                init_conc: float,
+                unit: str,
+                reactant_id:str,
+                replicates:List,
+                        ):
+        self.init_conc = init_conc
+        self.unit=unit
+        self.reactant_id = reactant_id
+        self.replicates = replicates
+
+class MeasurementDetailcls:
+    def __init__(self, name, species_dict):
+        self.name = name
+        self.species_dict = species_dict
