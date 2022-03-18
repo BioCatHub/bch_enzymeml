@@ -1,6 +1,7 @@
 import json
 
 bch_model={
+
   "title": "EcPDC_C-HispH6.5",
   "description": "Reaction under argon atmosphere",
   "enzymes": [
@@ -69,7 +70,6 @@ bch_model={
     ],
     "type": "microcentrifuge tube 1.5 mL polypropylene",
     "unit": "mL",
-    "volume": "1"
   },
   "condition": {
     "buffer": {

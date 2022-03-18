@@ -78,16 +78,16 @@ class Proteincls:
                  meta_id: str,
                  init_conc: float,
                  constant: bool,
-                 boundary: bool,
+                 #boundary: bool,
                  unit: str,
                  ontology: str,
-                 uri: str,
-                 creator_id: str,
+                 #uri: str,
+                 #creator_id: str,
                  sequence: str,
                  ecnumber: str,
-                 organism: str,
-                 organism_tax_id: str,
-                 uniprotid: str,
+                 #organism: str,
+                 #organism_tax_id: str,
+                 #uniprotid: str,
                  ):
 
         self.name = name
@@ -96,16 +96,16 @@ class Proteincls:
         self.meta_id = meta_id
         self.init_conc = init_conc
         self.constant = constant
-        self.boundary = boundary
+        #self.boundary = boundary
         self.unit = unit
         self.ontology = ontology
-        self.uri = uri
-        self.creator_id = creator_id
+        #self.uri = uri
+        #self.creator_id = creator_id
         self.sequence = sequence
         self.ecnumber = ecnumber
-        self.organism = organism
-        self.organism_tax_id = organism_tax_id
-        self.uniprotid = uniprotid
+        #self.organism = organism
+        #self.organism_tax_id = organism_tax_id
+        #self.uniprotid = uniprotid
 
 
 class Reactantcls:

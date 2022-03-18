@@ -9,16 +9,16 @@ class ProteinDetail(BaseModel):
     meta_id:str
     init_conc:float
     constant:bool
-    boundary:bool
+    #boundary:bool
     unit:str
     ontology:str
-    uri:str
-    creator_id:str
+    #uri:str
+    #creator_id:str
     sequence:str
     ecnumber: str
-    organism: str
-    organism_tax_id: str
-    uniprotid: str
+    #organism: str
+    #organism_tax_id: str
+    #uniprotid: str
 
     class Config:
         orm_mode = True
