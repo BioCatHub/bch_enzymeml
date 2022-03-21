@@ -12,11 +12,18 @@ class EnzymeMLModelBuilder:
         try:
             vessels = VesselBuilder(self.bch_dict).build_vessels()
         except Exception as e:
-            raise Exception("Error in Vessels")
+            raise 
+        
+        try:
+            proteins = ProteinBuilder(self.bch_dict).build_proteins()
+            print("die proteins sind im build model", proteins)
+        except:
+            print("die proteins sind im build model, Fehler!", proteins)
+            raise
 
-        proteins = ProteinBuilder(self.bch_dict).build_proteins()
 
         generals = {}
         generals["vessels"] = vessels # TODO #20 
+        generals["proteins"] = proteins
 
         return generals

@@ -11,7 +11,6 @@ class Generalscls:
                  created: str,
                  modified: str,
                  vessels: dict,
-                 units: dict,
                  creators:dict,
                  proteins:dict,
                  reactants:dict,
@@ -27,7 +26,6 @@ class Generalscls:
         self.created = created
         self.modified = modified
         self.vessels = vessels
-        self.units = units
         self.creators=creators
         self.proteins = proteins
         self.reactants = reactants
@@ -55,18 +53,18 @@ class Vesselcls:
                  unit: str,
                  constant: bool,
                  id: str,
-                 meta_id: str,
-                 uri: str,
-                 creator_id: str,
+                 #meta_id: str,
+                 #uri: str,
+                 #creator_id: str,
                  ):
         self.name = name
         self.volume = volume
         self.unit = unit
         self.constant = constant
         self.id = id
-        self.meta_id = meta_id
-        self.uri = uri
-        self.creator_id = creator_id
+        #self.meta_id = meta_id
+        #self.uri = uri
+        #self.creator_id = creator_id
         
 
 

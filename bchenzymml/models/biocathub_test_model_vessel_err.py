@@ -70,6 +70,7 @@ bch_model={
     ],
     "type": "microcentrifuge tube 1.5 mL polypropylene",
     "unit": "mL",
+    "volume":20
   },
   "condition": {
     "buffer": {

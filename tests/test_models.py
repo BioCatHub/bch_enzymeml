@@ -26,8 +26,8 @@ def test_creator():
     # print(creator1.dict)
 
 def test_vessel():
-    vessel_details = VesselDetail.from_orm(Vesselcls("eppi", 1, "ml", True, "v1", "asd", "sffdfd", "dsffd")) #TODO #17
-    vessel_details_falcon = VesselDetail.from_orm(Vesselcls("falcon", 1, "ul", True, "v2", "asd", "sffdfd", "a1"))
+    vessel_details = VesselDetail.from_orm(Vesselcls("eppi", 1, "ml", True, "v1")) #TODO #17
+    vessel_details_falcon = VesselDetail.from_orm(Vesselcls("falcon", 1, "ul", True, "v2"))
     vessel_container = VesselContainer(__root__={"vessel1":vessel_details, "vessel2":vessel_details_falcon })
     vessel = Vessel(vessel=vessel_container)
     #print(vessel.dict())
@@ -35,8 +35,7 @@ def test_vessel():
 
 
 def test_protein():
-    protein_details = ProteinDetail.from_orm(Proteincls("ahas", "p0", "v1", "adsd", 0, True, False, "mmole/l", "SBO:0000176", "fdsffsd", 
-                                                        "dsfdfsd", "ASDF", "1.1.1.1", "e.coli", "awdwada", "dffdsdf"))
+    protein_details = ProteinDetail.from_orm(Proteincls("ahas", "p0", "v1", "adsd", 0, True, "mmole/l", "SBO:0000176", "ASDF", "1.1.1.1"))
     protein_container = ProteinContainer(__root__={"protein_1":protein_details})
     protein = Protein(proteins=protein_container)
     return protein_container.__root__
@@ -66,11 +65,6 @@ def test_reagents():
     reagent_list = []
     reagent_list.append(reagent_details)
     return reagent_list
-
-
-def test_unit():
-    all_units = UnitBuilder().build_units()
-    return all_units
 
 
 def test_measurements():
@@ -112,7 +106,6 @@ def test_measurements():
 def test_generals():
 
     vessels_general = test_vessel()
-    units = test_unit()
     creator = test_creator()
     proteins = test_protein()
     reactants = test_reactants()
@@ -132,7 +125,7 @@ def test_generals():
     
     v = vessels_general.__root__
     generals = Generals.from_orm(Generalscls("decarboxylation", "23232", "www.example.com", "doi:10.101012323","10.01.2022", 
-                                            "11.01.2022", v, units,creator, proteins, reactants, reactions, measurments, files))
+                                            "11.01.2022", v,creator, proteins, reactants, reactions, measurments, files))
         
     
     test_dict = generals.dict()
@@ -154,4 +147,5 @@ def test_request():
     f = open("./tests/enzml.omex", 'wb')
     f.write(req.content)
     f.close()
+
 '''

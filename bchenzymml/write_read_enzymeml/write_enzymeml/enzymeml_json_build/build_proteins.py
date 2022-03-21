@@ -1,5 +1,6 @@
-from bchenzymml.models.enzymeml_protein import ProteinDetail, ProteinContainer, Protein
+from bchenzymml.models.enzymeml_protein import ProteinDetail, ProteinContainer
 from bchenzymml.models.enzymeml_classes import Proteincls
+from bchenzymml.write_read_enzymeml.write_enzymeml.unit_builder import UnitBuilder
 
 
 
@@ -26,12 +27,45 @@ class ProteinBuilder:
         '''
 
         proteins = self.bch_dict["enzymes"]
-        return proteins
+        return proteins   
     
     def build_proteins(self):
 
-        proteins = self.extract_proteins()
-        print(proteins)
+        try:
+            proteins = self.extract_proteins()
+            #print(proteins)
+
+            
+            protein_dict = {}
+
+            for i in range(len(proteins)):
+
+                
+                p = proteins[i]
+                unit = UnitBuilder().convert_from_bch_to_enzymeml(p["unit"])
+                protein = ProteinDetail.from_orm(Proteincls(p["name"],
+                                                            "p"+str(i), 
+                                                            "v1", 
+                                                            "meta"+str(i),
+                                                            p["concentration"],
+                                                            True, 
+                                                            unit, 
+                                                            "SBO:0000176", 
+                                                            p["sequence"], 
+                                                            p["ecNumber"]))
+                
+                protein_dict["protein"+str(i)] = protein.dict()
+
+            
+            protein_container = ProteinContainer(__root__=protein_dict)
+
+            print("der protein Container ist",protein_container )
+
+            return protein_container.__root__
+
+        except Exception as e:
+            raise
+
 
 
 

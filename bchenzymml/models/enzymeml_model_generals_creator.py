@@ -14,7 +14,6 @@ class Generals(BaseModel):
     created: str
     modified: str
     vessels:dict
-    units:Optional[dict]
     creators:Optional[dict]
     proteins:Optional[dict]
     reactants:Optional[dict]

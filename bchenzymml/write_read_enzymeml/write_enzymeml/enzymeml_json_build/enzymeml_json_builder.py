@@ -45,6 +45,7 @@ class EnzymeMLJSONNuilder:
             enzml_model = EnzymeMLModelBuilder(bch_dict).build_generals()
             print(enzml_model)
         except Exception as e:
-            err = {"code":400, "err":"Error in Vessels"}
-            return err
+            #err = {"code":400, "err":"Error in Vessels"} #TODO #24!
+            raise
+            #return err
 
