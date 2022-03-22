@@ -34,7 +34,7 @@ class VesselBuilder:
         try:
             v = self.extract_vessel()
             unit = UnitBuilder().convert_from_bch_to_enzymeml(v["unit"])
-            print("die Einheit ist", unit)
+            #print("die Einheit ist", unit)
             vessel_details = VesselDetail.from_orm(Vesselcls(v["type"], v["volume"], unit, True, "v1"))
             v_container = VesselContainer(__root__={"vessel1":vessel_details.dict()})
             return v_container.__root__

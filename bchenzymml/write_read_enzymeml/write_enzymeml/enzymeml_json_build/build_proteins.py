@@ -59,7 +59,7 @@ class ProteinBuilder:
             
             protein_container = ProteinContainer(__root__=protein_dict)
 
-            print("der protein Container ist",protein_container )
+            #print("der protein Container ist",protein_container )
 
             return protein_container.__root__
 
