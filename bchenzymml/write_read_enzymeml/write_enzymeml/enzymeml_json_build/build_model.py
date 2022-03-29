@@ -35,4 +35,6 @@ class EnzymeMLModelBuilder:
         generals["proteins"] = proteins
         generals["creators"] = creators
 
+        print("******************* Generals *************************", generals)
+
         return generals

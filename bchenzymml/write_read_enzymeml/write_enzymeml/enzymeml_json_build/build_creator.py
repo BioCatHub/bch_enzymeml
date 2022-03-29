@@ -33,11 +33,11 @@ class CreatorBuilder:
         try:
             c = self.extract_creator()
             creator_details = CreatorDetail.from_orm(Creatorcls(c["firstName"], c["lastName"], c["email"], "c1"))
-            print(type(creator_details.dict()))
             print("creator dict*************",creator_details.dict()) #TODO #25
-            c_container = CreatorContainer (__root__={"vessel1":creator_details.dict()})
-            print("*******************Creaotr container:", c_container.__root__["vessel1"].dict())
-            return c_container.__root__
+            
+            creator_dict = {"creator1":creator_details.dict()}
+    
+            return creator_dict
         
         except Exception as err:
             # raise Exception("Error in Vessels")

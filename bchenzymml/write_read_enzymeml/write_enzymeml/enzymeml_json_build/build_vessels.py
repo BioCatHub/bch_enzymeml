@@ -36,8 +36,9 @@ class VesselBuilder:
             unit = UnitBuilder().convert_from_bch_to_enzymeml(v["unit"])
             #print("die Einheit ist", unit)
             vessel_details = VesselDetail.from_orm(Vesselcls(v["type"], v["volume"], unit, True, "v1"))
-            v_container = VesselContainer(__root__={"vessel1":vessel_details.dict()})
-            return v_container.__root__
+            vessel_dict = {}
+            vessel_dict["vessel1"] = vessel_details.dict()
+            return vessel_dict
         
         except Exception as err:
             # raise Exception("Error in Vessels")
