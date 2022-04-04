@@ -187,34 +187,6 @@ class ReagentDetailscls:
         self.ontology = ontology
 
 
-class UnitDetailscls:
-    def __init__(self,
-				name,
-				id,
-				meta_id,
-				units,
-				ontology,
-				):
-        self.name = name
-        self.id = id
-        self.meta_id = meta_id
-        self.units = units
-        self.ontology = ontology
-
-
-class CustomUnitcls:
-    def __init__(self,
-                 kind,
-                 exponent,
-                 scale,
-                 multiplier):
-        self.kind = kind
-        self.exponent = exponent
-        self.scale = scale
-        self.multiplier = multiplier
-
-
-
 class ReplicatesDetailscls:
     def __init__(self, id:str,
                 species_id:str,
