@@ -1,4 +1,4 @@
-from bchenzymml.models.enzymeml_model_generals_creator import CreatorDetail, CreatorContainer 
+from bchenzymml.models.enzymeml_model_generals_creator import CreatorDetail
 from bchenzymml.models.enzymeml_classes import Creatorcls
 
 
@@ -32,8 +32,8 @@ class CreatorBuilder:
 
         try:
             c = self.extract_creator()
-            creator_details = CreatorDetail.from_orm(Creatorcls(c["firstName"], c["lastName"], c["email"], "c1"))
-            print("creator dict*************",creator_details.dict()) #TODO #25
+            creator_details = CreatorDetail.from_orm(Creatorcls(c["firstName"], c["lastName"], c["email"], "ad1"))
+            #TODO #25
             
             creator_dict = {"creator1":creator_details.dict()}
     

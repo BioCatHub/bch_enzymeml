@@ -10,22 +10,16 @@ class ReactantsDetail(BaseModel):
     vessel_id: str
     meta_id: str
     init_conc: float
-    constant: bool
-    boundary: bool
+    #constant: bool
+    #boundary: bool
     unit: str
-    ontology:str
-    uri: str
-    creator_id: str
+    #ontology:str
+    #uri: str
+    #creator_id: str
     smiles: str
-    inchi: str
-    chebi_id:str
+    #inchi: str
+    #chebi_id:str
 
     class Config:
         orm_mode = True
 
-
-class ReactantsContainer(BaseModel):
-    __root__:Dict[str, ReactantsDetail]
-
-class Reactant(BaseModel):
-    reactants:ReactantsContainer

@@ -45,16 +45,5 @@ class Creatorcls:
         self.id = id
 
 
-class CreatorContainer(BaseModel):
-    __root__: Dict[str, CreatorDetail]
-
-class Creator(BaseModel):
-    creator: CreatorContainer
-
-
-creatordetail1 = CreatorDetail.from_orm(Creatorcls("Jan", "jansen", "sdads", "asddsa"))
-creator1container = CreatorContainer(__root__={"creator_1": creatordetail1})
-creator1 = Creator(creator=creator1container)
-
 
 

@@ -3,11 +3,10 @@ from bchenzymml.models.enzymeml_classes import Proteincls
 from bchenzymml.write_read_enzymeml.write_enzymeml.unit_builder import UnitBuilder
 
 
-
 class ProteinBuilder:
     '''
         Builds the EnzymeML_Json protein dictionary
-    
+
         Args
         ----
         bch_dict: dict; Dictionary with the structure of the BioCatHub model
@@ -21,53 +20,40 @@ class ProteinBuilder:
     def __init__(self, bch_dict):
         self.bch_dict = bch_dict
 
-    def extract_proteins(self): 
+    def extract_proteins(self):
         '''
             extracts the protein object from the bch_dict dictionary
         '''
 
         proteins = self.bch_dict["enzymes"]
-        return proteins   
-    
+        return proteins
+
     def build_proteins(self):
 
         try:
             proteins = self.extract_proteins()
-            #print(proteins)
-
-            
             protein_dict = {}
-
             for i in range(len(proteins)):
-
-                
                 p = proteins[i]
                 unit = UnitBuilder().convert_from_bch_to_enzymeml(p["unit"])
                 protein = ProteinDetail.from_orm(Proteincls(p["name"],
-                                                            "p"+str(i), 
-                                                            "v1", 
+                                                            "p"+str(i),
+                                                            "v1",
                                                             "meta"+str(i),
                                                             p["concentration"],
-                                                            True, 
-                                                            unit, 
-                                                            "SBO:0000176", 
-                                                            p["sequence"], 
+                                                            True,
+                                                            #unit,
+                                                            "mmole",
+                                                            "SBO:0000176",
+                                                            p["sequence"],
                                                             p["ecNumber"]))
-                
+
                 protein_dict["protein"+str(i)] = protein.dict()
 
-            
-            protein_container = ProteinContainer(__root__=protein_dict)
-
-            #print("der protein Container ist",protein_container )
-
-            return protein_container.__root__
+            return protein_dict
 
         except Exception as e:
             raise
-
-
-
 
         '''
 

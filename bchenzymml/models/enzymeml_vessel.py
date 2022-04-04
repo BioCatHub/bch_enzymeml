@@ -17,10 +17,4 @@ class VesselDetail(BaseModel):
     class Config:
             orm_mode = True
 
-class VesselContainer(BaseModel):
-    __root__:Dict[str, VesselDetail]
-
-class Vessel(BaseModel):
-    vessel:VesselContainer
-
 

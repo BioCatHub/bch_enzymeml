@@ -8,12 +8,12 @@ class ReactionDetail(BaseModel):
     temperature: float
     temperature_unit: str
     ph: float
-    ontology:str
+    #ontology:str
     id:str
     meta_id:str
-    uri:str
-    creator_id:str
-    model:Optional[dict]
+    #uri:str
+    #creator_id:str
+    #model:Optional[dict]
     educts:Optional[List]
     products:Optional[List]
     modifiers:Optional[List]
