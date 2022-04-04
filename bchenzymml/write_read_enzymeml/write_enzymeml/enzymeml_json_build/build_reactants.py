@@ -49,15 +49,16 @@ class ReactantsBuilder:
         for i in reactants_list:
             
             unit = UnitBuilder().convert_from_bch_to_enzymeml(i["unit"])
+            index = str(reactants_list.index(i))
 
             new_reactant = ReactantsDetail.from_orm(Reactantcls(i["name"], 
-                                                                "s"+str(reactants_list.index(i)),
+                                                                "s"+index,
                                                                 "v1",
-                                                                "meta_id"+str(reactants_list.index(i)),
+                                                                "meta_id"+index,
                                                                 i["concentration"],
                                                                 unit,
                                                                 i["smiles"]))
-            reactants_dict["reactant"+str(reactants_list.index(i))] = new_reactant.dict()
+            reactants_dict["reactant"+index] = new_reactant.dict()
         
         #print("******** reactants_dict*******",reactants_dict)
 

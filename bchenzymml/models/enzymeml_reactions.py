@@ -20,13 +20,6 @@ class ReactionDetail(BaseModel):
     class Config:
             orm_mode = True
 
-class ReactionContainer(BaseModel):
-    __root__: Dict[str, ReactionDetail]
-
-class Reaction(BaseModel):
-    reactions:ReactionContainer
-
-
 class ReagentDetail(BaseModel):
     species_id: str
     stoichiometry: float
