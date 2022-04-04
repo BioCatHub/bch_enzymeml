@@ -12,6 +12,9 @@ class UnitBase:
         unit_dict["mol"] = "mole"
         unit_dict["mmol"] = "mmole"
         unit_dict["mmoL/L"] = "mmole/l"
+        unit_dict["L"] = "litre"
+        unit_dict["mL"] = "mlitre"
+        unit_dict["mg/mL"] = "mgram/mlitre"
         return unit_dict
     
     def check_unit(self, unit):
@@ -23,7 +26,7 @@ class UnitBase:
                 return unit_dict[unit]
             
             else:
-                return "no Unit"
+                return "dimensionless"
         
         except Exception as e:
             return "no Unit Error"

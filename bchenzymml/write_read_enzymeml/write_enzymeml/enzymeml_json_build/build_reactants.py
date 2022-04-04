@@ -1,6 +1,6 @@
 from bchenzymml.models.enzymeml_reactants import ReactantsDetail
 from bchenzymml.models.enzymeml_classes import Reactantcls
-
+from bchenzymml.write_read_enzymeml.write_enzymeml.unit_builder import UnitBuilder
 
 
 
@@ -47,16 +47,19 @@ class ReactantsBuilder:
         reactants_list = self.reactant_extractors()
         reactants_dict={}
         for i in reactants_list:
+            
+            unit = UnitBuilder().convert_from_bch_to_enzymeml(i["unit"])
+
             new_reactant = ReactantsDetail.from_orm(Reactantcls(i["name"], 
                                                                 "s"+str(reactants_list.index(i)),
                                                                 "v1",
                                                                 "meta_id"+str(reactants_list.index(i)),
                                                                 i["concentration"],
-                                                                "mmole",
+                                                                unit,
                                                                 i["smiles"]))
             reactants_dict["reactant"+str(reactants_list.index(i))] = new_reactant.dict()
         
-        print("******** reactants_dict*******",reactants_dict)
+        #print("******** reactants_dict*******",reactants_dict)
 
         return reactants_dict
 

@@ -42,8 +42,7 @@ class ProteinBuilder:
                                                             "meta"+str(i),
                                                             p["concentration"],
                                                             True,
-                                                            #unit,
-                                                            "mmole",
+                                                            unit,
                                                             "SBO:0000176",
                                                             p["sequence"],
                                                             p["ecNumber"]))

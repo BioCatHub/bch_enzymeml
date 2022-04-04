@@ -6,6 +6,7 @@ bch_model={
   "enzymes": [
     {
       "concentration": "1",
+      "unit":"mg/mL",
       "ecNumber": "4.1.1.1",
       "formulation": "NiNTA pruified enzyme",
       "method": "Bradford",
