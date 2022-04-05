@@ -27,7 +27,7 @@ class ReactionBuilder:
         reactions = []
         for i in self.bch_dict["enzymes"]:
             reactions.append(i["reaction"])
-            print("Die Reaction ist:", i["reaction"])
+            #print("Die Reaction ist:", i["reaction"])
         
         return reactions
 

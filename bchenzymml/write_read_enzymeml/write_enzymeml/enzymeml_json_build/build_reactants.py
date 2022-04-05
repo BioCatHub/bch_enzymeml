@@ -1,6 +1,7 @@
 from bchenzymml.models.enzymeml_reactants import ReactantsDetail
 from bchenzymml.models.enzymeml_classes import Reactantcls
 from bchenzymml.write_read_enzymeml.write_enzymeml.unit_builder import UnitBuilder
+from bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.reaction_builder_functions.reactants_extractor import BCHReactantsExtractor
 
 
 
@@ -23,28 +24,13 @@ class ReactantsBuilder:
     def __init__(self, bch_dict):
         self.bch_dict = bch_dict
 
-    def reactant_extractors(self):
-        enzymes = self.bch_dict["enzymes"]
-        reactants_list = []
-        for i in enzymes:
-            educts = i["reaction"]["educts"]
-            for j in educts:
-                reactants_list.append(j)
-            products = i["reaction"]["products"]
-            for k in products:
-                reactants_list.append(k)
-
-        #print("************* reactants**********", reactants_list)
-
-        return reactants_list
-
-    
+   
     def build_reactant_classes(self):
         '''
             builds the pydantic models based on the submitted values
         '''
 
-        reactants_list = self.reactant_extractors()
+        reactants_list = BCHReactantsExtractor(self.bch_dict).build_reactants_dict()
         reactants_dict={}
         for i in reactants_list:
             
@@ -52,7 +38,7 @@ class ReactantsBuilder:
             index = str(reactants_list.index(i))
 
             new_reactant = ReactantsDetail.from_orm(Reactantcls(i["name"], 
-                                                                "s"+index,
+                                                                i["id"],
                                                                 "v1",
                                                                 "meta_id"+index,
                                                                 i["concentration"],
@@ -60,7 +46,7 @@ class ReactantsBuilder:
                                                                 i["smiles"]))
             reactants_dict["reactant"+index] = new_reactant.dict()
         
-        #print("******** reactants_dict*******",reactants_dict)
+        print("******** reactants_dict*******",reactants_dict)
 
         return reactants_dict
 
