@@ -47,4 +47,5 @@ class EnzymeMLModelBuilder:
         generals["proteins"] = proteins
         #generals["creators"] = creators
         generals["reactants"] = reactants
+        generals["reactions"] = reactions
         return generals

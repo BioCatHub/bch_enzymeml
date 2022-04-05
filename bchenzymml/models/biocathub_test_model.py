@@ -86,7 +86,7 @@ bch_model={
     ],
     "ph": "6.5",
     "temp": "30",
-    "unit": "\u00b0C"
+    "unit": "°C"
   },
   "experimentalData": {
     "measurements": [

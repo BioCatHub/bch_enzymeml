@@ -155,7 +155,7 @@ class Reactioncls:
                 #model: dict,
                 educts: list,
                 products: list,
-                modifiers: list
+                #modifiers: list
                 ):
 
         self.name = name
@@ -171,7 +171,7 @@ class Reactioncls:
         #self.model = model
         self.educts = educts
         self.products = products
-        self.modifiers = modifiers
+        #self.modifiers = modifiers
 
 
 class ReagentDetailscls:

@@ -16,7 +16,7 @@ class ReactionDetail(BaseModel):
     #model:Optional[dict]
     educts:Optional[List]
     products:Optional[List]
-    modifiers:Optional[List]
+    #modifiers:Optional[List]
     class Config:
             orm_mode = True
 

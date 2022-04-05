@@ -15,6 +15,7 @@ class UnitBase:
         unit_dict["L"] = "litre"
         unit_dict["mL"] = "mlitre"
         unit_dict["mg/mL"] = "mgram/mlitre"
+        unit_dict["°C"] = "C"
         return unit_dict
     
     def check_unit(self, unit):

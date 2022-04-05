@@ -1,6 +1,7 @@
-from bchenzymml.models.enzymeml_reactants import ReactantsDetail
-from bchenzymml.models.enzymeml_classes import Reactantcls
+from bchenzymml.models.enzymeml_reactions import ReactionDetail
+from bchenzymml.models.enzymeml_classes import Reactioncls
 from bchenzymml.write_read_enzymeml.write_enzymeml.unit_builder import UnitBuilder
+from bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.reaction_builder_functions.reactant_extractor_reaction import ReactionExtractor
 
 
 
@@ -23,12 +24,28 @@ class ReactionBuilder:
 
     def reaction_extractors(self):
 
-
-        reactions = []
-        for i in self.bch_dict["enzymes"]:
-            reactions.append(i["reaction"])
-            #print("Die Reaction ist:", i["reaction"])
+        reactions_list = ReactionExtractor(self.bch_dict).extract_reaction_dict()
+        #print(reactions_list)
         
+        reactions = {}
+
+        for i in reactions_list["participants"]:
+            entry = reactions_list["participants"][i]
+            print(entry)
+            conditions = reactions_list["conditions"]
+
+            new_reaction = ReactionDetail.from_orm(Reactioncls(
+                                                                entry["name"], 
+                                                                conditions["reversible"],
+                                                                conditions["temperature"],
+                                                                conditions["temperature_unit"],
+                                                                conditions["ph"],
+                                                                entry["id"], 
+                                                                entry["meta_id"],
+                                                                entry["educts"],
+                                                                entry["products"]
+                                                                ))
+            reactions[i]=new_reaction.dict()
         return reactions
 
         #print("************* reactants**********", reactants_list)
