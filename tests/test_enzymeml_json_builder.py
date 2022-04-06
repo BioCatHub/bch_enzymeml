@@ -7,6 +7,8 @@ import os
 from bchenzymml.models.biocathub_test_model import model
 from bchenzymml.models.biocathub_test_model_vessel_err import model as vessel_err_test
 from bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.reaction_builder_functions.reactant_extractor_reaction import ReactionExtractor
+from bchenzymml.Exceptions.enzymeml_write_exceptions import VesselError, ProteinError, CreatorError, ReactantsError, ReactionsError
+
 
 
 from bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.enzymeml_json_builder import EnzymeMLJSONNuilder
@@ -14,10 +16,21 @@ from bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.enzymeml_
 def test_enzymeML_builder():
 
     new_model = EnzymeMLJSONNuilder(model).build_enzymeml_json()
-    vessel_err_test_model = EnzymeMLJSONNuilder(vessel_err_test).build_enzymeml_json()
+    #vessel_err_test_model = EnzymeMLJSONNuilder(vessel_err_test).build_enzymeml_json()
     #print(vessel_err_test_model)
     #print(new_model)
     return new_model
+
+def test_enzymeml_exception():
+    
+    try:
+        new_model = EnzymeMLJSONNuilder(vessel_err_test).build_enzymeml_json()
+        print("Error Model Test")
+        print(new_model)
+    except VesselError as e:
+        print("Error Model Test, excepotion called")
+        print("error in vessels")
+
 
 
 def testReaction_builder():

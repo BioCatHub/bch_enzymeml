@@ -32,7 +32,7 @@ class CreatorBuilder:
 
         try:
             c = self.extract_creator()
-            creator_details = CreatorDetail.from_orm(Creatorcls(c["firstName"], c["lastName"], c["email"], "ad1"))
+            creator_details = CreatorDetail.from_orm(Creatorcls(c["firstName"], c["lastName"], c["email"], "a0"))
             #TODO #25
             
             creator_dict = {"creator1":creator_details.dict()}

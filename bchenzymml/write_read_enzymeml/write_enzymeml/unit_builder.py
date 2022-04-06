@@ -1,8 +1,6 @@
 from bchenzymml.models.unit_dict import UnitBase
 
 
-
-
 '''
     Converts the Units used in BioCatHub to the Units used in EnzymeML
 

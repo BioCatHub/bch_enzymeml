@@ -1,5 +1,6 @@
 from bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.build_vessels import VesselBuilder
 from bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.build_model import EnzymeMLModelBuilder
+from bchenzymml.Exceptions.enzymeml_write_exceptions import VesselError, ProteinError, CreatorError, ReactantsError, ReactionsError
 
 import json
 
@@ -40,13 +41,16 @@ class EnzymeMLJSONNuilder:
         return bch_dict
 
     def build_enzymeml_json(self):
+        
+        bch_dict = self.convert_JSON_to_dict()
+        
         try:
-            bch_dict = self.convert_JSON_to_dict()
             enzml_model = EnzymeMLModelBuilder(bch_dict).build_generals()
             return enzml_model
-            #print("Das Gesamtmodell ist:", enzml_model)
-        except Exception as e:
-            #err = {"code":400, "err":"Error in Vessels"} #TODO #24!
+
+        except VesselError as err:
             raise
-            #return err
+            
+
+
 

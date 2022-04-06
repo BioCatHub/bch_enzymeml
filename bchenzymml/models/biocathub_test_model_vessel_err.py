@@ -68,7 +68,7 @@ bch_model={
     "others": [
       
     ],
-    "type": "microcentrifuge tube 1.5 mL polypropylene",
+    "typ": "microcentrifuge tube 1.5 mL polypropylene",
     "unit": "mL",
     "volume":20
   },

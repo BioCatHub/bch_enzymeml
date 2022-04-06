@@ -31,7 +31,7 @@ class ReactionBuilder:
 
         for i in reactions_list["participants"]:
             entry = reactions_list["participants"][i]
-            print(entry)
+            #print(entry)
             conditions = reactions_list["conditions"]
 
             new_reaction = ReactionDetail.from_orm(Reactioncls(
