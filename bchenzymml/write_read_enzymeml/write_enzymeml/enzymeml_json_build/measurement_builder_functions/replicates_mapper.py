@@ -31,31 +31,29 @@ class ReplicatesMapper:
 
 
     
-    def extract_replicates(self):
+    def extract_replicates(self, measurement):
 
         try: 
 
-            measurement_enzymeml = {}
-            measurements = self.extract_measurements()
+            measurement_enzymeml = {}            
+
             
+            x_values = []
 
-            for i in measurements:
-                x_values = []
+            y_values_length = len(measurement["replicates"][0]["y_values"])
+            print(y_values_length)
 
-                y_values_length = len(i["replicates"][0]["y_values"])
-                print(y_values_length)
+            for j in measurement["replicates"]:
+                x_values.append(j["x_value"])
+            
+            for y_len in range(y_values_length):
+                y_values = []
+                for repl in measurement["replicates"]:
+                    y_values.append(repl["y_values"][y_len])
+                measurement_enzymeml["y_values"+str(y_len)] = y_values
 
-                for j in i["replicates"]:
-                    x_values.append(j["x_value"])
-                
-                for y_len in range(y_values_length):
-                    y_values = []
-                    for repl in i["replicates"]:
-                        y_values.append(repl["y_values"][y_len])
-                    measurement_enzymeml["y_values"+str(y_len)] = y_values
-
-                measurement_enzymeml["x_values"] = x_values
-                return measurement_enzymeml
+            measurement_enzymeml["x_values"] = x_values
+            return measurement_enzymeml
 
 
             #print("******************************************************************************************************")

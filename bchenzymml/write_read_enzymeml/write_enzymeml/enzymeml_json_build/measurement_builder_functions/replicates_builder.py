@@ -33,18 +33,27 @@ class ReplicatesBuilder(ReplicatesMapper):
 
     def build_replicates(self):
 
-        measurement = self.extract_measurements()
-        units = self.extract_units(measurement[0])
-        reagent_id = self.extract_reagent_id(measurement[0])
-        replicate_series = self.extract_replicates()
+        replicate_list = []
 
-        replicate = ReplicatesDetails.from_orm(ReplicatesDetailscls("r1", 
-                                                                    reagent_id, units["y_unit"],
-                                                                    units["x_unit"],
-                                                                    replicate_series["x_values"],
-                                                                    replicate_series["y_values0"]
-                                                                    ))
-        return replicate.dict()
+        measurement = self.extract_measurements()
+
+        for i in measurement:
+
+            units = self.extract_units(i)
+            reagent_id = self.extract_reagent_id(i)
+            replicate_series = self.extract_replicates(i)
+
+            print("replicate series:", replicate_series)
+        
+
+            replicate = ReplicatesDetails.from_orm(ReplicatesDetailscls("r1", 
+                                                                        reagent_id, units["y_unit"],
+                                                                        units["x_unit"],
+                                                                        replicate_series["x_values"],
+                                                                        replicate_series["y_values0"]
+                                                                        ))
+            replicate_list.append(replicate.dict())
+        return replicate_list
 
         #print(replicate_series)
 
