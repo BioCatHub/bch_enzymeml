@@ -3,6 +3,8 @@ from bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.build_pro
 from bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.build_creator import CreatorBuilder
 from bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.build_reactants import ReactantsBuilder
 from bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.build_reactions import ReactionBuilder
+from bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.build_measurements import MeasurementBuilder
+
 from bchenzymml.Exceptions.enzymeml_write_exceptions import VesselError, ProteinError, CreatorError, ReactantsError, ReactionsError
 
 

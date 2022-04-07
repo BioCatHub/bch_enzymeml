@@ -12,14 +12,6 @@ class MeasurementDetail(BaseModel):
             orm_mode = True
 
 
-class MeasurementDetailContainer(BaseModel):
-    __root__: Dict[str, MeasurementDetail]
-
-    class Config:
-        orm_mode = True
-
-
-
 class SpeciesMeasurementDetail(BaseModel):
     init_conc: float
     unit: str
@@ -28,15 +20,6 @@ class SpeciesMeasurementDetail(BaseModel):
 
     class Config:
         orm_mode = True
-
-
-
-class SpeciesDictContainer(BaseModel):
-    __root__:Dict[str, dict]
-
-class SpeciesMeasurementContainer(BaseModel):
-     __root__: Dict[str, SpeciesMeasurementDetail]
-
 
 
 class ReplicatesDetails(BaseModel):
@@ -51,8 +34,6 @@ class ReplicatesDetails(BaseModel):
         orm_mode = True
 
 
-class ReolicateConteiner(BaseModel):
-    __root__: Dict[str, ReplicatesDetails]
 
 
 
