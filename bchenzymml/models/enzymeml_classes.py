@@ -216,6 +216,7 @@ class SpeciesMeasurementDetailcls:
         self.replicates = replicates
 
 class MeasurementDetailcls:
-    def __init__(self, name, species_dict):
+    def __init__(self, name, id, species_dict):
         self.name = name
+        self.id = id
         self.species_dict = species_dict

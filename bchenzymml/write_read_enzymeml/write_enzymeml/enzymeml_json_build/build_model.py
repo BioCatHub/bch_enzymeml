@@ -43,6 +43,12 @@ class EnzymeMLModelBuilder:
         except:
             print("die proteins sind im build model, Fehler!", proteins)
             raise ReactionsError
+        
+        try:
+            measurements = MeasurementBuilder(self.bch_dict).build_measurements()
+        except:
+            print("die proteins sind im build model, Fehler!", proteins)
+            raise
 
         generals = {}
         generals["name"] = "experiment"
@@ -51,4 +57,5 @@ class EnzymeMLModelBuilder:
         generals["creators"] = creators
         generals["reactants"] = reactants
         generals["reactions"] = reactions
+        generals["measurements"] = measurements
         return generals

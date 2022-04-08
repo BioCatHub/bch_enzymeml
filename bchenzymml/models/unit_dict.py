@@ -11,6 +11,7 @@ class UnitBase:
         unit_dict["mL"] = "ml"
         unit_dict["mol"] = "mole"
         unit_dict["mmol"] = "mmole"
+        unit_dict["mol/l"] = "mole/l"
         unit_dict["mmoL/L"] = "mmole/l"
         unit_dict["L"] = "litre"
         unit_dict["mL"] = "mlitre"

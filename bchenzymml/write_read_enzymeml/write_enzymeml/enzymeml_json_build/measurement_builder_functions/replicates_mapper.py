@@ -55,9 +55,6 @@ class ReplicatesMapper:
             measurement_enzymeml["x_values"] = x_values
             return measurement_enzymeml
 
-
-            #print("******************************************************************************************************")
-            return measurements
         except Exception as e:
             print("extract Replicates")
             raise

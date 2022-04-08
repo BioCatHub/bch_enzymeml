@@ -1,8 +1,7 @@
-from bchenzymml.models.enzymeml_reactions import ReactionDetail
-from bchenzymml.models.enzymeml_classes import Reactioncls
+from bchenzymml.models.enzymeml_classes import MeasurementDetailcls
 from bchenzymml.write_read_enzymeml.write_enzymeml.unit_builder import UnitBuilder
-import bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.measurement_builder_functions.replicates_mapper
-
+from bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.measurement_builder_functions.measurement_extractor import MeasurementExtractor
+from bchenzymml.models.enzymeml_measurement import MeasurementDetail
 
 
 class MeasurementBuilder:
@@ -23,52 +22,28 @@ class MeasurementBuilder:
         self.bch_dict = bch_dict
 
 
-    def measurement_extractor(self):
-        pass
-
-    def reaction_extractors(self):
-
-        reactions_list = []
-        #print(reactions_list)
-        
-        reactions = {}
-
-        for i in reactions_list["participants"]:
-            entry = reactions_list["participants"][i]
-            #print(entry)
-            conditions = reactions_list["conditions"]
-
-            new_reaction = ReactionDetail.from_orm(Reactioncls(
-                                                                entry["name"], 
-                                                                conditions["reversible"],
-                                                                conditions["temperature"],
-                                                                conditions["temperature_unit"],
-                                                                conditions["ph"],
-                                                                entry["id"], 
-                                                                entry["meta_id"],
-                                                                entry["educts"],
-                                                                entry["products"]
-                                                                ))
-            reactions[i]=new_reaction.dict()
-        return reactions
-
-        #print("************* reactants**********", reactants_list)
-
-
-    
-    def build_reactant_classes(self):
-        '''
-            builds the pydantic models based on the submitted values
-        '''
-
-
-    def build_reactions(self):
+    def build_species(self):
         
 
         try:
-            reactions = self.reaction_extractors()
-            return reactions
+            species_dict = {}
+            reagent_measurements = MeasurementExtractor(self.bch_dict).build_measurement()
+            species_dict["reactants"] = reagent_measurements
+            species_dict["proteins"] = {}
+            return species_dict
         
         except Exception as err:
             # raise Exception("Error in Vessels")
             raise
+    
+    
+    def build_measurements(self):
+
+        species = self.build_species()
+
+        measurements_model = MeasurementDetail.from_orm(MeasurementDetailcls("BioCatHub_measurement", "m0", species))
+        measurements_dict = {"measurement0":measurements_model.dict()}
+        print(measurements_dict)
+        return measurements_dict
+
+    

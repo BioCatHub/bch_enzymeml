@@ -6,6 +6,7 @@ from typing import List, Optional, Dict
 
 class MeasurementDetail(BaseModel):
     name: str
+    id:str
     species_dict:dict
 
     class Config:
@@ -32,11 +33,6 @@ class ReplicatesDetails(BaseModel):
 
     class Config:
         orm_mode = True
-
-
-
-
-
 
 
 class ReplicatesDetailscls:

@@ -46,7 +46,7 @@ class ReactantsBuilder:
                                                                 i["smiles"]))
             reactants_dict["reactant"+index] = new_reactant.dict()
         
-        #print("******** reactants_dict*******",reactants_dict)
+        print("******** reactants_dict*******",reactants_dict)
 
         return reactants_dict
 
