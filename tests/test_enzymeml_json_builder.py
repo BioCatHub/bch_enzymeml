@@ -26,8 +26,8 @@ def test_enzymeml_exception():
     
     try:
         new_model = EnzymeMLJSONNuilder(vessel_err_test).build_enzymeml_json()
-        print("Error Model Test")
-        print(new_model)
+        #print("Error Model Test")
+        #print(new_model)
     except VesselError as e:
         print("Error Model Test, excepotion called")
         print("error in vessels")
@@ -50,8 +50,8 @@ def test_request():
     
     req = requests.post("http://127.0.0.1:5000/create", json.dumps(test_enzymeML_builder()))
     
-    print("return request is", req.status_code)
-    print("der content ist", req.content)
+    #print("return request is", req.status_code)
+    #print("der content ist", req.content)
     if os.path.exists("./tests/enzml.omex"):
         os.remove("./tests/enzml.omex")
     f = open("./tests/enzml.omex", 'wb')

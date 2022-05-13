@@ -27,6 +27,8 @@ class EnzymeMLReader(Resource):
             archive.save('assets/test.omex')
                 
         archive_path = "assets/test.omex"
+        
         bch_model = ExtractFromEnzymeML(archive_path).extract_bch_model()
+
         print("success", bch_model)
         return bch_model
