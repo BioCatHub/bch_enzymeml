@@ -1,6 +1,8 @@
 import bchenzymml.zenodo_adapter.upload_enzymeml_to_zenodo as upload_adapter
+import bchenzymml.zenodo_adapter.zenodo_connector
 
-'''
+
+
 
 data_test = {
     "metadata": {
@@ -16,7 +18,7 @@ data_test = {
 }
 
 test_file = "NewEnzymeML.omex"
-
+'''
 
 def test_upload():
     new_upload = upload_adapter.EnzymeMLUploader(test_file, data_test)
@@ -24,3 +26,8 @@ def test_upload():
     print(upload)
 
 '''
+
+def test_upload():
+
+    newUpload = upload_adapter.EnzymeMLUploader(test_file, data_test)
+    

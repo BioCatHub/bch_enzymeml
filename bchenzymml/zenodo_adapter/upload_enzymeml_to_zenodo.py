@@ -23,12 +23,33 @@ test_file = "NewEnzymeML.omex"
 
 
 class EnzymeMLUploader:
+    '''
+        Reads in the EnzymeML file and the metadata and returns them. The metadata are returned as dict
+        the file as bytestream
+
+        args:
+            enzyme_ml: string; path to the enzymeML document to be uploaded
+            metadata: dict; dict containing metadata nessecary for the upload
+    
+
+    '''
 
     def __init__(self, enzyme_ml, metadata):
         self.enzyme_ml = enzyme_ml
         self.metadata = metadata
 
     def upload_enzyme_ml(self):
+
+        ''' 
+            instanciates the zenodo connector class and calls the upload_enzymml method
+
+            args:
+                None
+            
+            returns:
+                response: JSON; response code from Zenodo.
+        '''
+
         upload = zc.ZenodoConnector(self.enzyme_ml)
         file_payload = self.read_in_binary()
         upl = upload.upload_enzymeml(data_test, headers, file_payload)
@@ -37,7 +58,14 @@ class EnzymeMLUploader:
     
     def read_in_binary(self):
         '''
-            Reads in the Bytestring of the EnzymeML document
+            Reads in the Bytestring of the EnzymeML document and returns the binary
+
+            args:
+                self.enzyme_ml: String; path to the enzymeml file
+    
+            returns:
+                upload_dict: dict; dictionary containing the binary of the enzymeml document
+
         '''
         enzyme_ml_binary = open(test_file, 'rb')
         upload_dict = {"file":enzyme_ml_binary}
