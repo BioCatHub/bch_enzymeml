@@ -38,7 +38,7 @@ class OmexBuilder:
         with open("assets/biocathub.json", "w") as bch_model_file:
             bch_model_json = json.dumps(self.bch_model)
             bch_model_file.write(bch_model_json)
-            print(self.bch_model)
+            #print(self.bch_model)
     
     def create_omex_archive(self):
         '''
@@ -53,6 +53,15 @@ class OmexBuilder:
         self.save_bch_model_local()
         archive.addFile("assets/biocathub.json", "biocathub.json", libcombine.KnownFormats.lookupFormat("json"))
         archive.writeToFile("assets/BioCatHub.omex")
+
+    def add_bch_model_to_omex_archive(self):
+        archive = libcombine.CombineArchive()
+        archive.initializeFromArchive("assets/BioCatHub_enzml.omex")
+        self.save_bch_model_local()
+        archive.addFile("assets/biocathub.json", "biocathub.json", libcombine.KnownFormats.lookupFormat("json"))
+        archive.writeToFile("assets/BioCatHub_omex_update.omex")
+
+
 
 
     

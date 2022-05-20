@@ -41,7 +41,7 @@ class ReplicatesMapper:
             x_values = []
 
             y_values_length = len(measurement["replicates"][0]["y_values"])
-            print(y_values_length)
+            #print(y_values_length)
 
             for j in measurement["replicates"]:
                 x_values.append(j["x_value"])

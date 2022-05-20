@@ -42,7 +42,7 @@ class ReplicatesBuilder(ReplicatesMapper):
         replicate_series = self.extract_replicates(measurement)
 
         for k in range(len(replicate_series)-1):
-            print(k)
+            #print(k)
             #print("replicates series", replicate_series[f"y_values{k}"])
             replicate = ReplicatesDetails.from_orm(ReplicatesDetailscls(f"r{k}", 
                                                                         reagent_id, 

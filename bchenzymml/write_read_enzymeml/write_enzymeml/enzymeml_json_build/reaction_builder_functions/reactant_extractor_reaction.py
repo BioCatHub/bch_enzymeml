@@ -73,7 +73,7 @@ class ReactionExtractor(BCHReactantsExtractor): # TODO #27
             reaction_dict["meta_id"] = "meta_r"+str(index)
             reaction_participants["reaction"+str(index)] = reaction_dict
         
-        print("Reaction participants")
+        #print("Reaction participants")
 
         return reaction_participants
 

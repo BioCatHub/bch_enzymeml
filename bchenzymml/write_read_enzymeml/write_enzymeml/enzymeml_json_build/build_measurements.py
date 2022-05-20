@@ -43,7 +43,7 @@ class MeasurementBuilder:
 
         measurements_model = MeasurementDetail.from_orm(MeasurementDetailcls("BioCatHub_measurement", "m0", species))
         measurements_dict = {"measurement0":measurements_model.dict()}
-        print(measurements_dict)
+        #print(measurements_dict)
         return measurements_dict
 
     

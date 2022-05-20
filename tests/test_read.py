@@ -1,6 +1,8 @@
 import requests
 import json
 
+'''
+
 def test_request():
     files = {"omex_archive":open("tests/enzml.omex", "rb")}
 
@@ -8,3 +10,5 @@ def test_request():
     
     print("RESULT",req)
     print("RESULT",req.text)
+
+'''
