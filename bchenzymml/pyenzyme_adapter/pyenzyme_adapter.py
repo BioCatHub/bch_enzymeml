@@ -13,12 +13,16 @@ class PyenzmeAdapter:
 
 
     def send_to_pyenzyme_create(self):
-    
-        req = requests.post("http://127.0.0.1:5000/create", json.dumps(self.enzymeml_model))
-        if os.path.exists("assets/BioCatHub_enzml.omex"):
-            os.remove("assets\BioCatHub_enzml.omex")
-        f = open("assets\BioCatHub_enzml.omex", 'wb')
-        f.write(req.content)
-        f.close()
-
+        
+        try:
+            req = requests.post("http://127.0.0.1:8000/create", json.dumps(self.enzymeml_model))
+            if os.path.exists("assets/BioCatHub_enzml.omex"):
+                os.remove("assets\BioCatHub_enzml.omex")
+            f = open("assets\BioCatHub_enzml.omex", 'wb')
+            f.write(req.content)
+            f.close()
+            print("yOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
+        except Exception as e:
+            print("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
+            raise
 

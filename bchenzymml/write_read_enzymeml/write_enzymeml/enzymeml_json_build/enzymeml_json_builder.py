@@ -37,20 +37,45 @@ class EnzymeMLJSONNuilder:
             bch_dict: dict
 
         '''
-        bch_dict = json.loads(self.bch_json)
-        return bch_dict
+
+        try:
+    
+            bch_dict = json.loads(self.bch_json)
+            return self.bch_json
+        except Exception as err:
+            return self.bch_json
 
     def build_enzymeml_json(self):
+        #bch_dict = self.convert_JSON_to_dict()
+        print("EEEEEEEEEEEELLLOOOOOOOOOOOOOOOOO")
         
-        bch_dict = self.convert_JSON_to_dict()
         
         try:
-            enzml_model = EnzymeMLModelBuilder(bch_dict).build_generals()
+            enzml_model = EnzymeMLModelBuilder(self.bch_json).build_generals()
             return enzml_model
 
         except VesselError as err:
+            print("Error in EnzymeMLJson Builder")
             raise
             
+        except ProteinError as err:
+            print("Error in EnzymeMLJson Builder")
+            raise
+        
+        except CreatorError as err:
+            print("Error in EnzymeMLJson Builder")
+            raise
 
+        except ReactantsError as err:
+            print("Error in EnzymeMLJson Builder")
+            raise
+
+        except ReactionsError as err:
+            print("Error in EnzymeMLJson Builder, reactions")
+            raise ReactionsError(err)
+
+        except Exception as err:
+            print("unkown err",err)
+            raise
 
 
