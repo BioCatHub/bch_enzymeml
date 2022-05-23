@@ -1,6 +1,7 @@
 from libcombine import CombineArchive
 
 import json
+import os
 
 class ExtractFromEnzymeML:
     ''' 
@@ -34,9 +35,10 @@ class ExtractFromEnzymeML:
         '''
 
         archive = CombineArchive()
-        archive.initializeFromArchive("assets/test.omex")
+        archive.initializeFromArchive("assets/file.omex") #TODO #32
         experiment = False
-
+        if os.path.exists("assets/biocathub.json"):
+                os.remove("assets/biocathub.json")
         for i in range(archive.getNumEntries()):
             entry = archive.getEntry(i)
             if entry.getLocation() == "biocathub.json": # TODO #8

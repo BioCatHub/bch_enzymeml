@@ -21,8 +21,7 @@ class PyenzmeAdapter:
             f = open("assets\BioCatHub_enzml.omex", 'wb')
             f.write(req.content)
             f.close()
-            print("yOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
         except Exception as e:
-            print("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
+            print("Error in Adapter", e)
             raise
 

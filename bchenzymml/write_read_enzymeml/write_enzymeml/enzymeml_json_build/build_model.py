@@ -13,7 +13,7 @@ class EnzymeMLModelBuilder:
     def __init__(self, bch_dict):
         try:
             self.bch_dict = bch_dict
-            print("bch_dict im model builder")
+            #print("bch_dict im model builder")
         except Exception as e:
             print("constructor error")
             print(e)
@@ -22,7 +22,6 @@ class EnzymeMLModelBuilder:
         
         try:
             vessels = VesselBuilder(self.bch_dict).build_vessels()
-            print("vessels")
         except Exception as e:
             raise VesselError
 
@@ -38,14 +37,14 @@ class EnzymeMLModelBuilder:
             creators = CreatorBuilder(self.bch_dict).build_creator()
             print("build generals creators")
         except:
-            print("die proteins sind im build model, Fehler!")
+            print("Error in build model in the CreatorBuilder class")
             raise CreatorError
 
         try:
             reactants = ReactantsBuilder(self.bch_dict).build_reactants()
             print("build generals ractants")
         except:
-            print("die reactants sind im build model, Fehler!")
+            print("Error in build model in the ReactantsBuilder class")
             raise ReactantsError
 
         try:

@@ -36,18 +36,24 @@ class ProteinBuilder:
             for i in range(len(proteins)):
                 p = proteins[i]
                 unit = UnitBuilder().convert_from_bch_to_enzymeml(p["unit"])
-                protein = ProteinDetail.from_orm(Proteincls(p["name"],
-                                                            "p"+str(i),
-                                                            "v1",
-                                                            "meta"+str(i),
-                                                            p["concentration"],
-                                                            True,
-                                                            unit,
-                                                            "SBO:0000176",
-                                                            p["sequence"],
-                                                            p["ecNumber"]))
+                try:
+                    protein = ProteinDetail.from_orm(Proteincls(p["name"],
+                                                                "p"+str(i),
+                                                                "v1",
+                                                                "meta"+str(i),
+                                                                p["concentration"],
+                                                                True,
+                                                                unit,
+                                                                "SBO:0000176",
+                                                                p["sequence"],
+                                                                p["ecNumber"] #TODO #31
 
-                protein_dict["protein"+str(i)] = protein.dict()
+                                                                ))
+
+                    protein_dict["protein"+str(i)] = protein.dict()
+                except Exception as error:
+                    print("Error in proteins", error)
+                    raise
 
             return protein_dict
 

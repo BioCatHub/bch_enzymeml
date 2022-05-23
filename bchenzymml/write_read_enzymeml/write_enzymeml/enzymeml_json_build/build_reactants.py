@@ -29,25 +29,38 @@ class ReactantsBuilder:
         '''
             builds the pydantic models based on the submitted values
         '''
-
-        reactants_list = BCHReactantsExtractor(self.bch_dict).build_reactants_dict()
+        try:
+            reactants_list = BCHReactantsExtractor(self.bch_dict).build_reactants_dict()
+        except Exception as Err:
+            print("Fehler im reactantsextractor", err)
+            raise
         reactants_dict={}
-        for i in reactants_list:
-            
-            unit = UnitBuilder().convert_from_bch_to_enzymeml(i["unit"])
-            index = str(reactants_list.index(i))
+        for i in reactants_list:            
+            unit = UnitBuilder().convert_from_bch_to_enzymeml(i["unit"]) #TODO #33
+            try:
+                print("Went well before")
+                index = str(reactants_list.index(i))
+                print("Went well after")
+            except Exception as Err:
+                print("indexing Error in build_reactant_classes", Err)
 
-            new_reactant = ReactantsDetail.from_orm(Reactantcls(i["name"], 
-                                                                i["id"],
-                                                                "v1",
-                                                                "meta_id"+index,
-                                                                i["concentration"],
-                                                                unit,
-                                                                i["smiles"]))
-            reactants_dict["reactant"+index] = new_reactant.dict()
+            try:
+                print("Went well before in new reactant")
+                new_reactant = ReactantsDetail.from_orm(Reactantcls(i["name"], 
+                                                                    i["id"],
+                                                                    "v1",
+                                                                    "meta_id"+index,
+                                                                    i["concentration"],
+                                                                    unit,
+                                                                    i["smiles"]))
+                reactants_dict["reactant"+index] = new_reactant.dict()
+                print("Went well after in new reactant")
+            except Exception as err:
+                print("Reactants_builder error", err)
+                raise
         
         #print("******** reactants_dict*******",reactants_dict)
-
+        print(reactants_dict)
         return reactants_dict
 
     def build_reactants(self):
@@ -58,5 +71,6 @@ class ReactantsBuilder:
             return reactants
         
         except Exception as err:
+            print("error in build_reactants")
             # raise Exception("Error in Vessels")
             raise

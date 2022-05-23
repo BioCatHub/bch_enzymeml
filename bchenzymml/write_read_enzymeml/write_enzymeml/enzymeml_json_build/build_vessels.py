@@ -40,7 +40,7 @@ class VesselBuilder:
             return vessel_dict
         
         except Exception as err:
-            # raise Exception("Error in Vessels")
+            print("error in vessel_builder", err)
             raise
 
 

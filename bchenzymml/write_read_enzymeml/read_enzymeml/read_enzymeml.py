@@ -21,14 +21,17 @@ class EnzymeMLReader(Resource):
     @namespace.doc()
     def post(self):
 
-        archive = request.files["file"]
+        archive = request.files["enzymeML"]
         if os.path.exists("file.omex"):
             os.remove("file.omex")
-            archive.save('assets/test.omex')
+        archive.save('assets/file.omex')
                 
-        archive_path = "assets/test.omex"
+        archive_path = "assets/file.omex"
         
         bch_model = ExtractFromEnzymeML(archive_path).extract_bch_model()
 
         print("success", bch_model)
         return bch_model
+
+
+

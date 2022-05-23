@@ -24,8 +24,13 @@ class ReactionBuilder:
 
     def reaction_extractors(self):
 
-        reactions_list = ReactionExtractor(self.bch_dict).extract_reaction_dict()
-        #print(reactions_list)
+        try:
+
+            reactions_list = ReactionExtractor(self.bch_dict).extract_reaction_dict()
+            
+        except Exception as Err:
+            print("Error in reaction extractor", Err)
+            raise
         
         reactions = {}
 
@@ -34,19 +39,26 @@ class ReactionBuilder:
             #print(entry)
             conditions = reactions_list["conditions"]
 
-            new_reaction = ReactionDetail.from_orm(Reactioncls(
-                                                                entry["name"], 
-                                                                conditions["reversible"],
-                                                                conditions["temperature"],
-                                                                conditions["temperature_unit"],
-                                                                conditions["ph"],
-                                                                entry["id"], 
-                                                                entry["meta_id"],
-                                                                entry["educts"],
-                                                                entry["products"]
-                                                                ))
-            reactions[i]=new_reaction.dict()
-        return reactions
+            try:
+
+                new_reaction = ReactionDetail.from_orm(Reactioncls(
+                                                                    entry["name"], 
+                                                                    conditions["reversible"],
+                                                                    conditions["temperature"],
+                                                                    conditions["temperature_unit"],
+                                                                    conditions["ph"],
+                                                                    entry["id"], 
+                                                                    entry["meta_id"],
+                                                                    entry["educts"],
+                                                                    entry["products"]
+                                                                    ))
+                reactions[i]=new_reaction.dict()
+                return reactions
+
+            except Exception as Err:
+                print("Error in build_reactions", Err)
+                raise
+
 
         #print("************* reactants**********", reactants_list)
 

@@ -40,6 +40,7 @@ class ReactionExtractor(BCHReactantsExtractor): # TODO #27
         
         reaction_participants={}
 
+        
         for i in enzymes:
             index = enzymes.index(i)
             reaction = i["reaction"]
@@ -56,7 +57,7 @@ class ReactionExtractor(BCHReactantsExtractor): # TODO #27
                 ))
                 educts_list.append(new_educt.dict())
 
-            for j in reaction["products"]:
+            for j in reaction["products"]: # TODO #34 
                 new_product = ReagentDetail.from_orm(ReagentDetailscls(
                                                                         self.query_reagent_identifier(j),
                                                                         1,
@@ -90,11 +91,19 @@ class ReactionExtractor(BCHReactantsExtractor): # TODO #27
 
     def extract_reaction_dict(self):
 
+        
         reaction_dict = {}
-        reaction_dict["conditions"] = self.extract_conditions()
-        reaction_dict["participants"] = self.extract_reaction_participants()
-        return reaction_dict
 
+        try:
+            reaction_dict["conditions"] = self.extract_conditions()
+        except Exception as e:
+            print("Eroor in extracting conditions", e)
+        try:
+            reaction_dict["participants"] = self.extract_reaction_participants()
+        except Exception as e:
+            print("Eroor in extracting participants", e)
+        return reaction_dict
+        
         
             
 

@@ -19,8 +19,11 @@ class UnitBuilder:
     '''
 
     def convert_from_bch_to_enzymeml(self, unit):
-
-        unit = UnitBase().check_unit(unit)
-        return unit
+        try:
+            unit = UnitBase().check_unit(unit)
+            return unit
+        except Exception as Err:
+            print("unit error")
+            raise
 
 
