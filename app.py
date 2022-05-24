@@ -8,8 +8,8 @@ from bchenzymml.write_read_enzymeml.write_enzymeml.write_enzymeml import namespa
 from bchenzymml.write_read_enzymeml.read_enzymeml.read_enzymeml import namespace as read_ns
 # Selbst definierten Packages importiert
 
-class AppInitializer(): # TODO #2
-    '''
+#class AppInitializer(): # TODO #2
+'''
     Intatiates the app and api classes required to run the REST-API
 
     Params:
@@ -20,28 +20,28 @@ class AppInitializer(): # TODO #2
     - it instatiates the api required for REST-API functionalities and the Swagger documentation
     - it sets the CORS 
     - it adds the namespaces to the api object
-    '''
+'''
 
-    def create_app(self):
-        '''
-        initiates the app, api and CORS object for the REST-Api
-        Params:
-            none
-        Returns:
-            app(Object): Central object and entrypoint for the REST-API
-        '''
-        app = Flask(__name__)
-        api = Api(app)
-        api.add_namespace(write_ns)
-        api.add_namespace(read_ns)
-        config = Configurations.get_configuarations()
-        CORS(app, resources=config["CORS"])
-        return app
+def create_app():
+    '''
+    initiates the app, api and CORS object for the REST-Api
+    Params:
+        none
+    Returns:
+        app(Object): Central object and entrypoint for the REST-API
+    '''
+    app = Flask(__name__)
+    api = Api(app)
+    api.add_namespace(write_ns)
+    api.add_namespace(read_ns)
+    config = Configurations.get_configuarations()
+    CORS(app, resources=config["CORS"])
+    return app
     
 
 if __name__ == '__main__':
     
-    app = AppInitializer().create_app()
-    app.run(debug=True, port=5000)
+    app = create_app()
+    app.run(debug=True)
     
 

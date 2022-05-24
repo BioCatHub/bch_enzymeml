@@ -15,7 +15,7 @@ class PyenzmeAdapter:
     def send_to_pyenzyme_create(self):
         
         try:
-            req = requests.post("http://127.0.0.1:8000/create", json.dumps(self.enzymeml_model))
+            req = requests.post("https://enzymeml.sloppy.zone/create", json.dumps(self.enzymeml_model))
             if os.path.exists("assets/BioCatHub_enzml.omex"):
                 os.remove("assets\BioCatHub_enzml.omex")
             f = open("assets\BioCatHub_enzml.omex", 'wb')

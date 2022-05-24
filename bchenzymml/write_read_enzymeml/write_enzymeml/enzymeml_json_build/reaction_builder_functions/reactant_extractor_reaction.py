@@ -62,12 +62,16 @@ class ReactionExtractor(BCHReactantsExtractor): # TODO #27
                                                                         self.query_reagent_identifier(j),
                                                                         1,
                                                                         False,
-                                                                        "SBO:0000176"
+                                                                        "SBO:0000176" #TODO #35
                 ))
                 products_list.append(new_product.dict())
             
 
-            reaction_dict["name"] = reaction["value"]
+            try:
+                reaction_dict["name"] = reaction["value"]
+            except Exception as Err:
+                reaction_dict["name"] = "not defined"
+
             reaction_dict["educts"] = educts_list
             reaction_dict["products"] = products_list
             reaction_dict["id"] = "r"+str(index)
