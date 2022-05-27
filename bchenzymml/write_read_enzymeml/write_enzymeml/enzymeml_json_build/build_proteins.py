@@ -1,6 +1,8 @@
 from bchenzymml.models.enzymeml_protein import ProteinDetail, ProteinContainer
 from bchenzymml.models.enzymeml_classes import Proteincls
 from bchenzymml.write_read_enzymeml.write_enzymeml.unit_builder import UnitBuilder
+from bchenzymml.Exceptions.enzymeml_write_exceptions import VesselError, ProteinKeyError, CreatorError, ReactantsError, ReactionsError
+
 
 
 class ProteinBuilder:
@@ -30,44 +32,31 @@ class ProteinBuilder:
 
     def build_proteins(self):
 
-        try:
-            proteins = self.extract_proteins()
-            protein_dict = {}
-            for i in range(len(proteins)):
-                p = proteins[i]
-                unit = UnitBuilder().convert_from_bch_to_enzymeml(p["unit"])
-                try:
-                    protein = ProteinDetail.from_orm(Proteincls(p["name"],
-                                                                "p"+str(i),
-                                                                "v1",
-                                                                "meta"+str(i),
-                                                                p["concentration"],
-                                                                True,
-                                                                unit,
-                                                                "SBO:0000176",
-                                                                p["sequence"],
-                                                                p["ecNumber"] #TODO #31
+    
+        proteins = self.extract_proteins()
+        protein_dict = {}
+        for i in range(len(proteins)):
+            p = proteins[i]
+            unit = UnitBuilder().convert_from_bch_to_enzymeml(p["unit"])
+            try:
+                protein = ProteinDetail.from_orm(Proteincls(p["name"],
+                                                            "p"+str(i),
+                                                            "v1",
+                                                            "meta"+str(i),
+                                                            p["concentration"],
+                                                            True,
+                                                            unit,
+                                                            "SBO:0000176",
+                                                            p["sequence"],
+                                                            p["ecNumber"] #TODO #31
 
-                                                                ))
+                                                            ))
 
-                    protein_dict["protein"+str(i)] = protein.dict()
-                except Exception as error:
-                    print("Error in proteins", error)
-                    raise
+                protein_dict["protein"+str(i)] = protein.dict()
+            except KeyError as error:
+                raise ProteinKeyError(str(error.args[0]))
 
-            return protein_dict
+        return protein_dict
 
-        except Exception as e:
-            raise
 
-        '''
 
-        try:
-            p = self.extract_proteins()
-            protein_details = ProteinDetail.from_orm(Proteincls(p["name"], "p0", "v1", "meta_p0", p["concentration"], True, p["unit"],"SBO:0000176", p["sequence"], p["ecNumber"]))
-            p_container = ProteinContainer(__root__={"protein1":protein_details.dict()})
-            return p_container.__root__
-        
-        except Exception as err:
-            raise
-        '''

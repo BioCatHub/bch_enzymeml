@@ -1,4 +1,3 @@
-from app import AppInitializer
 
 
 # the app create app method needs to be imported

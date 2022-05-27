@@ -5,7 +5,7 @@ from bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.build_rea
 from bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.build_reactions import ReactionBuilder
 from bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.build_measurements import MeasurementBuilder
 
-from bchenzymml.Exceptions.enzymeml_write_exceptions import VesselError, ProteinError, CreatorError, ReactantsError, ReactionsError
+from bchenzymml.Exceptions.enzymeml_write_exceptions import VesselError, ProteinError, ProteinKeyError, CreatorError, ReactantsError, ReactionsError
 
 
 class EnzymeMLModelBuilder:
@@ -27,11 +27,9 @@ class EnzymeMLModelBuilder:
 
         try:
             proteins = ProteinBuilder(self.bch_dict).build_proteins()
-            print("build generals proteins")
             #print("die proteins sind im build model", proteins)
-        except:
-            print("die proteins sind im build model, Fehler!")
-            raise ProteinError
+        except ProteinKeyError as e:
+            raise
 
         try:
             creators = CreatorBuilder(self.bch_dict).build_creator()

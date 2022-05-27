@@ -40,7 +40,7 @@ class EnzymeMLwriter(Resource):
         except Exception as error:
             if os.path.exists("assets/BioCatHub.omex"):
                 os.remove("assets/BioCatHub.omex")
-            print("Error in build process")
+            print("Error in build process", error, "file:", __name__)
             OmexBuilder(payload).create_omex_archive()
             file_path = "assets/BioCatHub.omex"
             file_name = "experiment.omex"

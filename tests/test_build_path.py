@@ -1,6 +1,6 @@
 import bchenzymml.write_read_enzymeml.write_enzymeml.write_enzymeml
 from bchenzymml.models.biocathub_test_model import model
-from app import AppInitializer
+import app
 import json
 
 
@@ -11,9 +11,9 @@ import json
 
 
 def test_case():
-    app = AppInitializer().create_app()
+    build = app.create_app()
     print("TEST_ROUTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    with app.test_client() as client:
+    with build.test_client() as client:
         payload = json.dumps(model)
         res = client.post("api/create_enzymeml", json=model)
         #print(res)
