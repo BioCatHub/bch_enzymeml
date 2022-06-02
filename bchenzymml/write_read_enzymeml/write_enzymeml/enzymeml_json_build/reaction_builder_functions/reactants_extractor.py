@@ -35,6 +35,8 @@ class BCHReactantsExtractor:
         except Exception as err:
             print("error")
             print(self.bch_dict["title"])
+            raise
+
         
     def extract_all_reactants(self):
 

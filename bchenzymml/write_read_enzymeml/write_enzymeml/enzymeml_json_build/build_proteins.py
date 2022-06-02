@@ -36,7 +36,7 @@ class ProteinBuilder:
         proteins = self.extract_proteins()
         protein_dict = {}
         for i in range(len(proteins)):
-            p = proteins[i]
+            p = self.check_completeness(proteins[i])
             unit = UnitBuilder().convert_from_bch_to_enzymeml(p["unit"])
             try:
                 protein = ProteinDetail.from_orm(Proteincls(p["name"],
@@ -55,8 +55,31 @@ class ProteinBuilder:
                 protein_dict["protein"+str(i)] = protein.dict()
             except KeyError as error:
                 raise ProteinKeyError(str(error.args[0]))
-
         return protein_dict
+
+    def check_completeness(self, protein):
+        '''
+        checks if the submitted Protein elements of biocathub are complete, and refills them with placeholder not given, if missing
+
+        Args:
+            protein (dict): A protein or enzyme object of the BioCatHub model
+
+        Returns
+
+            protein_to_test (dict): A protein or enzyme object of the BioCatHub model, with missing fields annotated as _not given_
+        '''
+
+        checklist = ["name","concentration","sequence", "ecNumber"]
+        protein_to_test = protein
+
+        for i in checklist:
+            if i not in protein_to_test:
+                protein_to_test[i]="not given"
+            else:
+                pass
+        return protein_to_test
+
+
 
 
 

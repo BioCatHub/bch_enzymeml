@@ -53,7 +53,7 @@ class ReactionExtractor(BCHReactantsExtractor): # TODO #27
                                                                         self.query_reagent_identifier(j),
                                                                         1,
                                                                         False,
-                                                                        "SBO:0000176"
+                                                                        "SBO:0000015"
                 ))
                 educts_list.append(new_educt.dict())
 
@@ -62,7 +62,7 @@ class ReactionExtractor(BCHReactantsExtractor): # TODO #27
                                                                         self.query_reagent_identifier(j),
                                                                         1,
                                                                         False,
-                                                                        "SBO:0000176" #TODO #35
+                                                                        "SBO:0000011" #TODO #35
                 ))
                 products_list.append(new_product.dict())
             

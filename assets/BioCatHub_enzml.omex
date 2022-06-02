@@ -1,0 +1,1 @@
+{"detail":[{"loc":["body","proteins","protein0","ecnumber"],"msg":"string does not match regex \"(\\d+.)(\\d+.)(\\d+.)(\\d+)\"","type":"value_error.str.regex","ctx":{"pattern":"(\\d+.)(\\d+.)(\\d+.)(\\d+)"}}]}
