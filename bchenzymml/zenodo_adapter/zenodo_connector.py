@@ -142,10 +142,10 @@ print(data_set)
 
 
 
-name ="Jürgen"
-age = "22"
-new = "my name is {}/{}".format(name, age) 
-print(new)
+#name ="Jürgen"
+#age = "22"
+#new = "my name is {}/{}".format(name, age) 
+#print(new)
 
 
     
