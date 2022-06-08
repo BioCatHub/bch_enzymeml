@@ -6,6 +6,7 @@ from flask_cors import CORS
 from assets.configurations import Configurations
 from bchenzymml.write_read_enzymeml.write_enzymeml.write_enzymeml import namespace as write_ns
 from bchenzymml.write_read_enzymeml.read_enzymeml.read_enzymeml import namespace as read_ns
+from bchenzymml.zenodo_adapter.zenodo_adapter import namespace as zenodo_ns
 # Selbst definierten Packages importiert
 
 #class AppInitializer(): # TODO #2
@@ -34,6 +35,7 @@ def create_app():
     api = Api(app)
     api.add_namespace(write_ns)
     api.add_namespace(read_ns)
+    api.add_namespace(zenodo_ns)
     config = Configurations.get_configuarations()
     CORS(app, resources=config["CORS"])
     return app

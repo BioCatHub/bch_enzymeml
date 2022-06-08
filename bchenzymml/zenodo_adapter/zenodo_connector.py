@@ -35,6 +35,36 @@ class ZenodoConnector:
         r = requests.get(url,
                         params=token)
         return r.json()
+    
+    def extract_deposits_for_dashboard_table(self):
+        '''
+            receives all entries from the Zenodo repository and extracts metadata needed for the display in the BioCatHub dashboard table
+
+            Args:
+                None
+            
+            Returns:
+                depositions (dict): A dictionary containing the Zenodo entries together with the needed metadata for the BioCatHub dashboard
+            
+        '''
+
+        deposits = self.get_all_entries()
+
+        depositions = []
+        for element in deposits:
+            metadata = element['metadata']
+            creator = metadata['creators'][0]
+            deposition = {
+                'id': element['id'],
+                'title': metadata['title'],
+                'date': metadata['publication_date'],
+                'name': creator['name'],
+                'affiliation': creator['affiliation'],
+                'link': element['links']['html']
+            }
+            depositions.append(deposition)
+        return depositions
+
 
     def create_empty_deposit(self):
         r = requests.post(url,
