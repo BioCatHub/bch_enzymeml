@@ -160,15 +160,15 @@ data_obj={"metadata":{"upload_type":"dataset",
             "title":"Super_title"}}
 
 
-connector = ZenodoConnector(upl_file)
-connector.upload_enzymeml(data_test, headers, upl_file)
+#connector = ZenodoConnector(upl_file)
+#connector.upload_enzymeml(data_test, headers, upl_file)
 
 #data_sets = connector.get_all_entries()
 #for i in data_sets:
 #    print(i)
 
-data_set = connector.get_individual_entry("222")
-print(data_set)
+#data_set = connector.get_individual_entry("222")
+#print(data_set)
 
 
 

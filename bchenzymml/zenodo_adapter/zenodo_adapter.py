@@ -14,8 +14,6 @@ from bchenzymml.pyenzyme_adapter.pyenzyme_adapter import PyenzmeAdapter
 namespace = Namespace("api/zenodo", description="Route whicht handls the connection to Zenodo as well as the upload and download of EnzymeML documents")
 
 
-
-name:str = None
 @namespace.route("/getallexperiments")
 class ZenodoExtractor(Resource):
     @namespace.doc()
@@ -24,7 +22,8 @@ class ZenodoExtractor(Resource):
         print(experiments)
         return experiments
 
-'''
+
+
 @namespace.route("/getexperiment")
 class ZenodoSlicer(Resource):
     @namespace.doc()
@@ -34,5 +33,5 @@ class ZenodoSlicer(Resource):
         print("Request rocks")
         print(id)
         return "hallo"
-'''     
+
         
