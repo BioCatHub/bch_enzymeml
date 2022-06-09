@@ -6,7 +6,7 @@ import bchenzymml.zenodo_adapter.zenodo_connector as connector
 
 data_test = {
     "metadata": {
-        "title": "EnzymeML document new",
+         "title": "EnzymeML document new",
         "upload_type": "dataset",
         "description": "EnzymeML document",
         "creators": [

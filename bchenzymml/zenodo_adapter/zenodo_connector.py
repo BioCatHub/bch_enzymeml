@@ -49,7 +49,6 @@ class ZenodoConnector:
         '''
 
         deposits = self.get_all_entries()
-
         depositions = []
         for element in deposits:
             metadata = element['metadata']
@@ -125,11 +124,15 @@ class ZenodoConnector:
     
     def get_individual_entry(self, id):
         r = requests.get("https://sandbox.zenodo.org/api/deposit/depositions/1023538/files", params=token)
-        enzml = self.download_enzymeml_from_zenodo('https://sandbox.zenodo.org/api/files/e865a98e-6f82-445a-aaf2-14304547f033/2021-5-4ExperimentN.omex')
+        print("die depositoon is",r.json())
+        res = r.json()
+        filename = res[0]["filename"]
+
+        enzml = self.download_enzymeml_from_zenodo('https://sandbox.zenodo.org/api/files/{}/{}'.format(id, filename))
         new_file = open("NewEnzymeML.omex", "wb")
         new_file.write(enzml)
         new_file.close()
-        #return enzml
+        return enzml
 
     
     def download_enzymeml_from_zenodo(self, download_url):
