@@ -52,7 +52,7 @@ class EnzymeMLUploader:
 
         upload = zc.ZenodoConnector(self.enzyme_ml)
         file_payload = self.read_in_binary()
-        upl = upload.upload_enzymeml(data_test, headers, file_payload)
+        upl = upload.upload_enzymeml(self.metadata, headers, file_payload)
         return upl
 
     

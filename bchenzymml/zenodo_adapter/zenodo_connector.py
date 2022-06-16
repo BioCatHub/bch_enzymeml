@@ -34,6 +34,7 @@ class ZenodoConnector:
         '''
         r = requests.get(url,
                         params=token)
+        print(r.json())
         return r.json()
     
     def extract_deposits_for_dashboard_table(self):
@@ -91,7 +92,8 @@ class ZenodoConnector:
                         headers=headers,
                         data = json.dumps(data),
                         )
-        response = r.json()     
+        response = r.json()
+        print(response)
         return response["id"] 
 
     def upload_enzymeml(self, data, headers, file):
