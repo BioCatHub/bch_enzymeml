@@ -1,9 +1,10 @@
 import bchenzymml.zenodo_adapter.zenodo_connector as  zc
+from assets.configurations import Configurations
 
 token = {'access_token': 'h2VjvzgwrHAFLrQR3L0OhlsYPI8YE6H7VVHlTKWXfyCexOcIH0h8cMzZAtBq'}
 url = "https://sandbox.zenodo.org/api/deposit/depositions"
 headers = {"Content-Type": "application/json"}
-
+config = Configurations.get_configuarations()
 
 data_test = {
     "metadata": {
@@ -18,7 +19,7 @@ data_test = {
     }
 }
 
-test_file = "NewEnzymeML.omex"
+test_file = "assets/zenodo/BioCatHubomexupdate.omex"
 
 
 
@@ -37,6 +38,7 @@ class EnzymeMLUploader:
     def __init__(self, enzyme_ml, metadata):
         self.enzyme_ml = enzyme_ml
         self.metadata = metadata
+        self.config = Configurations.get_configuarations()
 
     def upload_enzyme_ml(self):
 
@@ -67,7 +69,7 @@ class EnzymeMLUploader:
                 upload_dict: dict; dictionary containing the binary of the enzymeml document
 
         '''
-        enzyme_ml_binary = open(test_file, 'rb')
+        enzyme_ml_binary = open(self.config["enzymeml"]["path_updated_by_biocathub_model"], 'rb')
         upload_dict = {"file":enzyme_ml_binary}
         return upload_dict
 

@@ -35,20 +35,20 @@ class ExtractFromEnzymeML:
         '''
 
         archive = CombineArchive()
-        archive.initializeFromArchive("assets/file.omex") #TODO #32
+        archive.initializeFromArchive(self.file_path) #TODO #32
         experiment = False
         if os.path.exists("assets/biocathub.json"):
                 os.remove("assets/biocathub.json")
         for i in range(archive.getNumEntries()):
             entry = archive.getEntry(i)
+            print("number of entries is",archive.getNumEntries() )
             if entry.getLocation() == "biocathub.json": # TODO #8
                 archive.extractEntry(entry.getLocation(), "assets/biocathub.json")
                 with open("assets/biocathub.json") as extract:
                     experiment = json.load(extract)
-                    print("Hallo ", experiment)
+                    print("the xperiment is:", experiment)
                     return experiment
                 break
             else:
-                print("falscher Eintrag")
-            return experiment
+                pass
         

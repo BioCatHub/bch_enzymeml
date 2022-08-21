@@ -16,7 +16,6 @@ from bchenzymml.zenodo_adapter.zenodo_adapter import namespace as zenodo_ns
     Params:
         none
 
-    This class is essential, because: 
     - it instatiates the app required for the webserver to work
     - it instatiates the api required for REST-API functionalities and the Swagger documentation
     - it sets the CORS 
@@ -44,6 +43,6 @@ def create_app():
 if __name__ == '__main__':
     
     app = create_app()
-    app.run(debug=True)
+    app.run(debug=False)
     
 

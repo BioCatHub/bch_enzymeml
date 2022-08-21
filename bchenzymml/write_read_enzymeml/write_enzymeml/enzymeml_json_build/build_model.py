@@ -28,7 +28,9 @@ class EnzymeMLModelBuilder:
         try:
             proteins = ProteinBuilder(self.bch_dict).build_proteins()
             #print("die proteins sind im build model", proteins)
+            print("proteins are built")
         except ProteinKeyError as e:
+            print("Error in protein Building")
             raise
 
         try:
@@ -47,6 +49,7 @@ class EnzymeMLModelBuilder:
 
         try:
             reactions = ReactionBuilder(self.bch_dict).build_reactions()
+            print("reaction is built!")
         except:
             print("die reactions sind im build model, Fehler!")
             raise ReactionsError

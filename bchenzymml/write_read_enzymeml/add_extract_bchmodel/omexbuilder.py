@@ -3,9 +3,14 @@ from io import BytesIO
 import json
 import zipfile
 import os
+import shutil
 
 # Thrid pary imports
 import libcombine
+
+# self imports
+
+from assets.configurations import Configurations
 
 class OmexBuilder:
     ''''
@@ -22,6 +27,7 @@ class OmexBuilder:
 
     def __init__(self,bch_model):
         self.bch_model = bch_model
+        self.config = Configurations.get_configuarations()
 
     
     def save_bch_model_local(self):
@@ -35,7 +41,7 @@ class OmexBuilder:
                 None
         '''
 
-        with open("assets/biocathub.json", "w") as bch_model_file:
+        with open(self.config["enzymeml"]["biocathub_model_path_local"], "w") as bch_model_file:
             bch_model_json = json.dumps(self.bch_model)
             bch_model_file.write(bch_model_json)
             #print(self.bch_model)
@@ -49,17 +55,53 @@ class OmexBuilder:
             return:
                 None
         '''
-        archive = libcombine.CombineArchive()
-        self.save_bch_model_local()
-        archive.addFile("assets/biocathub.json", "biocathub.json", libcombine.KnownFormats.lookupFormat("json"))
-        archive.writeToFile("assets/BioCatHub.omex")
+        try:
+            self.save_bch_model_local()
+            if os.path.exists(self.config["enzymeml"]["biocathub_model_path_local"]):
+                os.remove(self.config["enzymeml"]["biocathub_model_path_local"])  
+            newArchive = libcombine.CombineArchive()
+            newArchive.addFile(self.config["enzymeml"]["biocathub_model_path_local"], self.config["enzymeml"]["biocathub_paht_in_omex_archive"], libcombine.KnownFormats.lookupFormat("json"))
+            newArchive.writeToFile(self.config["enzymeml"]["path_updated_by_biocathub_model"])
+        except Exception as err:
+            print("error in reading enzymeml")
+            print(err)
+            raise
 
     def add_bch_model_to_omex_archive(self):
-        archive = libcombine.CombineArchive()
-        archive.initializeFromArchive("assets/BioCatHub_enzml.omex")
+        if os.path.exists(self.config["enzymeml"]["biocathub_model_path_local"]):
+            os.remove(self.config["enzymeml"]["biocathub_model_path_local"])
         self.save_bch_model_local()
-        archive.addFile("assets/biocathub.json", "biocathub.json", libcombine.KnownFormats.lookupFormat("json"))
-        archive.writeToFile("assets/BioCatHub_omex_update.omex")
+        archive = libcombine.CombineArchive()
+        path = "assets/enzymemlContainer"
+        archive.addFile(path+"/experiment.xml", "./experiment.xml",libcombine.KnownFormats_lookupFormat("sbml"), True)
+        archive.addFile(path+"/data/m0.csv", "./data/data.csv",libcombine.KnownFormats_lookupFormat("csv"))
+        archive.addFile(path+"/metadata.rdf", "./matadata.rdf",libcombine.KnownFormats_lookupFormat("rdf"))
+        archive.addFile(path+"/metadata_1.rdf", "./matadata_1.rdf",libcombine.KnownFormats_lookupFormat("rdf"))
+        archive.addFile(path+"/metadata_2.rdf", "./matadata_2.rdf",libcombine.KnownFormats_lookupFormat("rdf"))
+        archive.addFile(self.config["enzymeml"]["biocathub_model_path_local"], self.config["enzymeml"]["biocathub_paht_in_omex_archive"], libcombine.KnownFormats.lookupFormat("json"))
+        archive.writeToFile(self.config["enzymeml"]["path_updated_by_biocathub_model"])
+        if os.path.exists("assets/enzymemlContainer"):
+            shutil.rmtree("assets/enzymemlContainer")
+        if os.path.exists("assets/container.zip"):
+            os.remove("assets/container.zip")       
+
+        '''
+        
+        try:
+            if os.path.exists(self.config["enzymeml"]["path_updated_by_biocathub_model"]):
+                os.remove(self.config["enzymeml"]["path_updated_by_biocathub_model"])
+            archive = libcombine.CombineArchive()
+            archive.initializeFromArchive(self.config["enzymeml"]["path_incoming_pyenzyme"])
+            self.save_bch_model_local()
+          
+            archive.addFile(self.config["enzymeml"]["biocathub_model_path_local"], self.config["enzymeml"]["biocathub_paht_in_omex_archive"], libcombine.KnownFormats.lookupFormat("json"))
+  
+            archive.writeToFile(self.config["enzymeml"]["path_updated_by_biocathub_model"])
+        except Exception as err: 
+            print("error adding the biocathub model")
+            print(err)
+            raise
+    '''
 
 
 

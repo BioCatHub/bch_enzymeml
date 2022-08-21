@@ -1,6 +1,8 @@
 import requests
 import json
 
+from assets.configurations import Configurations
+
 token = {'access_token': 'h2VjvzgwrHAFLrQR3L0OhlsYPI8YE6H7VVHlTKWXfyCexOcIH0h8cMzZAtBq'}
 url = "https://sandbox.zenodo.org/api/deposit/depositions"
 
@@ -17,6 +19,7 @@ class ZenodoConnector:
     '''
     def __init__(self, file):
         self.file = file #TODO #15
+        self.config = Configurations.get_configuarations()
     
     
     def get_all_entries(self):
@@ -34,7 +37,7 @@ class ZenodoConnector:
         '''
         r = requests.get(url,
                         params=token)
-        print(r.json())
+        #print(r.json())
         return r.json()
     
     def extract_deposits_for_dashboard_table(self):
@@ -70,6 +73,7 @@ class ZenodoConnector:
         r = requests.post(url,
                             params=token,
                             json={})
+
     
     def create_new_deposition(self,data, headers):
 
@@ -93,7 +97,6 @@ class ZenodoConnector:
                         data = json.dumps(data),
                         )
         response = r.json()
-        print(response)
         return response["id"] 
 
     def upload_enzymeml(self, data, headers, file):
@@ -112,10 +115,15 @@ class ZenodoConnector:
                 response:dict; responst Object from Zenodo API Call
         '''
 
-
+        print("Neues EnzmL !*********************************************")
+        print("request was there")
         id = self.create_new_deposition(data, headers)
+
         r = requests.post(url+"/{}/files?access_token={}".format(id, token["access_token"]),
                             files=file)
+        print("WAS ALS ANTWORT KOMMT", r.content)
+
+        
         return r.json()
 
 
@@ -125,21 +133,24 @@ class ZenodoConnector:
 
     
     def get_individual_entry(self, id):
-        r = requests.get("https://sandbox.zenodo.org/api/deposit/depositions/1023538/files", params=token)
+        r = requests.get("https://sandbox.zenodo.org/api/deposit/depositions/{}/files".format(id), params=token)
         print("die depositoon is",r.json())
         res = r.json()
-        filename = res[0]["filename"]
+        print("response ist", res[0]["links"]['download'])
+        filename = self.config["zenodo"]["filename"]
 
-        enzml = self.download_enzymeml_from_zenodo('https://sandbox.zenodo.org/api/files/{}/{}'.format(id, filename))
-        new_file = open("NewEnzymeML.omex", "wb")
-        new_file.write(enzml)
-        new_file.close()
+        #enzml = self.download_enzymeml_from_zenodo('https://sandbox.zenodo.org/api/files/{}/{}'.format(id, filename))
+        print("method used is:", 'https://sandbox.zenodo.org/api/files/{}/{}'.format(id, filename))
+        enzml = self.download_enzymeml_from_zenodo(res[0]["links"]['download'])
+        #new_file = open(self.config["enzymeml"]["path_updated_by_biocathub_model"], "wb")
+        #new_file.write(enzml)
+        #new_file.close()
         return enzml
 
     
     def download_enzymeml_from_zenodo(self, download_url):
         r = requests.get(download_url, params=token)
-        print(r.content)        
+        print("Status ist",r.status_code)        
         return r.content
 
 

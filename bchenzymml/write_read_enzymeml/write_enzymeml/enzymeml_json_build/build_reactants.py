@@ -39,15 +39,15 @@ class ReactantsBuilder:
         for i in reactants_list:            
             unit = UnitBuilder().convert_from_bch_to_enzymeml(i["unit"]) #TODO #33
             try:
-                print("Went well before")
+                #print("Went well before")
                 index = str(reactants_list.index(i))
-                print("Went well after")
+                #print("Went well after")
             except Exception as Err:
                 print("indexing Error in build_reactant_classes", Err)
 
             try:
                 reactant_base = self.check_completeness(i)
-                print("Went well before in new reactant", reactant_base)
+                #print("Went well before in new reactant", reactant_base)
                 new_reactant = ReactantsDetail.from_orm(Reactantcls(reactant_base["name"], 
                                                                     reactant_base["id"],
                                                                     "v1",
@@ -56,20 +56,20 @@ class ReactantsBuilder:
                                                                     unit,
                                                                     reactant_base["smiles"]))
                 reactants_dict["reactant"+index] = new_reactant.dict()
-                print("Went well after in new reactant", new_reactant)
+                #print("Went well after in new reactant", new_reactant)
                 
             except Exception as err:
                 print("Reactants_builder error", err)
                 raise
-            print("BLOOOOOOOOOOOOOOOOOOOOOOOOOO")
-            print(reactants_dict)
+            #print("BLOOOOOOOOOOOOOOOOOOOOOOOOOO")
+            #print(reactants_dict)
             return reactants_dict
             
 
     def build_reactants(self):
     
         try:
-            print("Haaaaaaaaaaaaaaaaaaaaaaaaaaallo")
+            #print("Haaaaaaaaaaaaaaaaaaaaaaaaaaallo")
             reactants = self.build_reactant_classes()
             return reactants
         
