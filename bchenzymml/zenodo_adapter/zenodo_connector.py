@@ -22,7 +22,7 @@ class ZenodoConnector:
         self.config = Configurations.get_configuarations()
     
     
-    def get_all_entries(self):
+    def get_all_entries(self, key):
         ''' 
             This Method returns all depositions available in the respective Zenodo Account
 
@@ -35,12 +35,20 @@ class ZenodoConnector:
             payload: List; List containing entries in the Zenodo account
 
         '''
-        r = requests.get(url,
-                        params=token)
-        #print(r.json())
-        return r.json()
+
+        if key == False:
+            r = requests.get(url,
+                            params=token)
+            #print(r.json())
+            return r.json()
+        elif key != False:
+            r = requests.get(url,
+                            params={'access_token': key})
     
-    def extract_deposits_for_dashboard_table(self):
+            return r.json()
+
+    
+    def extract_deposits_for_dashboard_table(self, key): #TODO #37
         '''
             receives all entries from the Zenodo repository and extracts metadata needed for the display in the BioCatHub dashboard table
 
@@ -52,21 +60,40 @@ class ZenodoConnector:
             
         '''
 
-        deposits = self.get_all_entries()
-        depositions = []
-        for element in deposits:
-            metadata = element['metadata']
-            creator = metadata['creators'][0]
-            deposition = {
-                'id': element['id'],
-                'title': metadata['title'],
-                'date': metadata['publication_date'],
-                'name': creator['name'],
-                'affiliation': creator['affiliation'],
-                'link': element['links']['html']
-            }
-            depositions.append(deposition)
-        return depositions
+        if key == False:
+            deposits = self.get_all_entries(key=False)
+            depositions = []
+            for element in deposits:
+                metadata = element['metadata']
+                creator = metadata['creators'][0]
+                deposition = {
+                    'id': element['id'],
+                    'title': metadata['title'],
+                    'date': metadata['publication_date'],
+                    'name': creator['name'],
+                    'affiliation': creator['affiliation'],
+                    'link': element['links']['html']
+                }
+                depositions.append(deposition)
+            return depositions
+        
+        elif key!= False:
+            deposits = self.get_all_entries(key)
+            depositions = []
+            for element in deposits:
+                metadata = element['metadata']
+                creator = metadata['creators'][0]
+                deposition = {
+                    'id': element['id'],
+                    'title': metadata['title'],
+                    'date': metadata['publication_date'],
+                    'name': creator['name'],
+                    'affiliation': creator['affiliation'],
+                    'link': element['links']['html']
+                }
+                depositions.append(deposition)
+            return depositions
+
 
 
     def create_empty_deposit(self):
@@ -99,7 +126,31 @@ class ZenodoConnector:
         response = r.json()
         return response["id"] 
 
-    def upload_enzymeml(self, data, headers, file):
+    def create_new_deposition_with_key(self,data, headers, key):
+
+        '''
+            This method creates an empty deposition in Zenodo and adds nessecary metadata via the data object
+
+            args
+            ----
+                params:dict; dictionary containing the access token required to communicate with the Zenodo REST-API it based on the model, example {'access-token':<ZenodoAccessToken>}
+                headers:dict; dictionary which contains general information about the HTTP request to Zenodo. In this case it only contains information about the content; example: headers = {"Content-Type": "application/json"}
+                data: dict; dict containing the metadatata required to describe an experiment in Zenodo. Documentation see here: https://developers.zenodo.org/#representation
+
+            returns
+                response:dict; responst Object from Zenodo API Call
+            -------
+
+        '''
+        r = requests.post(url,
+                        params={'access_token': key},
+                        headers=headers,
+                        data = json.dumps(data),
+                        )
+        response = r.json()
+        return response["id"] 
+
+    def upload_enzymeml(self, data, headers, file, key):
         '''
             Uploads a new EnzymeML document to Zenodo. Therefore this method has two steps:
                 1. It creates a new Deposition by calling the create_new_deposition method in Zenodo and adds metadata about the experiment in the EnzymeML document
@@ -116,15 +167,26 @@ class ZenodoConnector:
         '''
 
         print("Neues EnzmL !*********************************************")
-        print("request was there")
-        id = self.create_new_deposition(data, headers)
+        print("DER KEY IST", key)
 
-        r = requests.post(url+"/{}/files?access_token={}".format(id, token["access_token"]),
-                            files=file)
-        print("WAS ALS ANTWORT KOMMT", r.content)
-
+        if key == None:
         
-        return r.json()
+            id = self.create_new_deposition(data, headers)
+
+            r = requests.post(url+"/{}/files?access_token={}".format(id, token["access_token"]),
+                                files=file)
+            print("WAS ALS ANTWORT KOMMT", r.content)
+
+            
+            return r.json()
+        elif key != None:
+
+            id = self.create_new_deposition_with_key(data, headers, key)
+
+            r = requests.post(url+"/{}/files?access_token={}".format(id, key),
+                                files=file)
+            print("WAS ALS ANTWORT KOMMT", r.content)
+
 
 
 
@@ -150,7 +212,7 @@ class ZenodoConnector:
     
     def download_enzymeml_from_zenodo(self, download_url):
         r = requests.get(download_url, params=token)
-        print("Status ist",r.status_code)        
+        print("Status ist",r.status_code)     
         return r.content
 
 

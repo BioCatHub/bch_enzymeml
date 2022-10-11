@@ -40,7 +40,7 @@ class EnzymeMLUploader:
         self.metadata = metadata
         self.config = Configurations.get_configuarations()
 
-    def upload_enzyme_ml(self):
+    def upload_enzyme_ml(self, key):
 
         ''' 
             instanciates the zenodo connector class and calls the upload_enzymml method
@@ -51,10 +51,11 @@ class EnzymeMLUploader:
             returns:
                 response: JSON; response code from Zenodo.
         '''
+        print("Der Key ist", key)
 
         upload = zc.ZenodoConnector(self.enzyme_ml)
         file_payload = self.read_in_binary()
-        upl = upload.upload_enzymeml(self.metadata, headers, file_payload)
+        upl = upload.upload_enzymeml(self.metadata, headers, file_payload, key)
         return upl
 
     

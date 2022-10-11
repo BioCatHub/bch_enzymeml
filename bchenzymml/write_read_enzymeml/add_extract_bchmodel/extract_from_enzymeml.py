@@ -41,12 +41,12 @@ class ExtractFromEnzymeML:
                 os.remove("assets/biocathub.json")
         for i in range(archive.getNumEntries()):
             entry = archive.getEntry(i)
-            print("number of entries is",archive.getNumEntries() )
+            #print("number of entries is",archive.getNumEntries() )
             if entry.getLocation() == "biocathub.json": # TODO #8
                 archive.extractEntry(entry.getLocation(), "assets/biocathub.json")
                 with open("assets/biocathub.json") as extract:
                     experiment = json.load(extract)
-                    print("the xperiment is:", experiment)
+                    #print("the xperiment is:", experiment)
                     return experiment
                 break
             else:
