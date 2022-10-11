@@ -8,7 +8,7 @@ import os
 from bchenzymml.write_read_enzymeml.add_extract_bchmodel.omexbuilder import OmexBuilder
 from bchenzymml.write_read_enzymeml.add_extract_bchmodel.extract_from_enzymeml import ExtractFromEnzymeML
 
-namespace = Namespace("api/read_enzymeml", description="Route whicht reads EnzymeML documents and returns the content to BioCatHub")
+namespace = Namespace("enzml/read_enzymeml", description="Route whicht reads EnzymeML documents and returns the content to BioCatHub")
 
 
 @namespace.route("")

@@ -19,10 +19,11 @@ from bchenzymml.zenodo_adapter.zenodo_metadata_parser import ZenodoMetadataParse
 from assets.configurations import Configurations
 
 
-namespace = Namespace("api/zenodo", description="Route whicht handls the connection to Zenodo as well as the upload and download of EnzymeML documents")
+namespace = Namespace("enzml/zenodo", description="Route whicht handls the connection to Zenodo as well as the upload and download of EnzymeML documents")
 config = Configurations.get_configuarations()
 
-@namespace.route("/getallexperiments")
+#@namespace.route("/getallexperiments")
+@namespace.route("")
 class ZenodoExtractor(Resource):
     @namespace.doc()
     def get(self):

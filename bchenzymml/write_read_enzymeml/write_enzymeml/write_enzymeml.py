@@ -9,7 +9,7 @@ from bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.enzymeml_
 from bchenzymml.pyenzyme_adapter.pyenzyme_adapter import PyenzmeAdapter
 from assets.configurations import Configurations
 
-namespace = Namespace("api/create_enzymeml", description="Route whicht creates Enzymeml documents and returns them in form of omex archives")
+namespace = Namespace("enzml/create_enzymeml", description="Route whicht creates Enzymeml documents and returns them in form of omex archives")
 
 BCH_MODEL:dict = model
 config = Configurations.get_configuarations()
