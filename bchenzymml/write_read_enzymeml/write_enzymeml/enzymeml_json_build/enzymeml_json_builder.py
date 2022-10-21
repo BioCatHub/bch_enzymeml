@@ -1,6 +1,6 @@
 from bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.build_vessels import VesselBuilder
 from bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.build_model import EnzymeMLModelBuilder
-from bchenzymml.Exceptions.enzymeml_write_exceptions import VesselError, ProteinError, ProteinKeyError, CreatorError, ReactantsError, ReactionsError
+from bchenzymml.Exceptions.enzymeml_write_exceptions import VesselError, ProteinError, ProteinKeyError, CreatorError, ReactantsError, ReactionsError, MeasurementError
 
 import json
 

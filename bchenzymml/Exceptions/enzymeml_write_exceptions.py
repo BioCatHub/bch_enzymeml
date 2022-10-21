@@ -24,3 +24,7 @@ class ReactantsError(Exception):
 
 class ReactionsError(Exception):
     pass
+
+
+class MeasurementError(Exception):
+    pass

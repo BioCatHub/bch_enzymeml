@@ -2,6 +2,7 @@ from bchenzymml.models.enzymeml_classes import MeasurementDetailcls
 from bchenzymml.write_read_enzymeml.write_enzymeml.unit_builder import UnitBuilder
 from bchenzymml.write_read_enzymeml.write_enzymeml.enzymeml_json_build.measurement_builder_functions.measurement_extractor import MeasurementExtractor
 from bchenzymml.models.enzymeml_measurement import MeasurementDetail
+from bchenzymml.Exceptions.enzymeml_write_exceptions import MeasurementError
 
 
 class MeasurementBuilder:
@@ -39,11 +40,16 @@ class MeasurementBuilder:
     
     def build_measurements(self):
 
-        species = self.build_species()
+        try:
 
-        measurements_model = MeasurementDetail.from_orm(MeasurementDetailcls("BioCatHub_measurement", "m0", species))
-        measurements_dict = {"measurement0":measurements_model.dict()}
-        #print(measurements_dict)
-        return measurements_dict
+            species = self.build_species()
+
+            measurements_model = MeasurementDetail.from_orm(MeasurementDetailcls("BioCatHub_measurement", "m0", species))
+            measurements_dict = {"measurement0":measurements_model.dict()}
+            #print(measurements_dict)
+            return measurements_dict
+        except Exception as Error:
+            print("something wrong with the measurements")
+            raise MeasurementError 
 
     
