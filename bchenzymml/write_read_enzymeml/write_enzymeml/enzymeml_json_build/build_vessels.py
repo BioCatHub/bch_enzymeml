@@ -1,6 +1,7 @@
 from bchenzymml.models.enzymeml_vessel import VesselDetail
 from bchenzymml.models.enzymeml_classes import Vesselcls
 from bchenzymml.write_read_enzymeml.write_enzymeml.unit_builder import UnitBuilder
+from bchenzymml.Exceptions.enzymeml_write_exceptions import VesselError
 
 
 
@@ -41,7 +42,7 @@ class VesselBuilder:
         
         except Exception as err:
             print("error in vessel_builder", err)
-            raise
+            raise VesselError
 
 
 

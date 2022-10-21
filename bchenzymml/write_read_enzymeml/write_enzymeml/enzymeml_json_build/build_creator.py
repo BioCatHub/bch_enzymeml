@@ -1,5 +1,6 @@
 from bchenzymml.models.enzymeml_model_generals_creator import CreatorDetail
 from bchenzymml.models.enzymeml_classes import Creatorcls
+from bchenzymml.Exceptions.enzymeml_write_exceptions import CreatorError
 
 
 
@@ -41,5 +42,5 @@ class CreatorBuilder:
         
         except Exception as err:
             # raise Exception("Error in Vessels")
-            raise
+            raise CreatorError
 

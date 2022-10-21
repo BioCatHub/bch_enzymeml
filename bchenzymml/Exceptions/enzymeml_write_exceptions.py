@@ -28,3 +28,7 @@ class ReactionsError(Exception):
 
 class MeasurementError(Exception):
     pass
+
+
+class CreatorError(Exception):
+    pass

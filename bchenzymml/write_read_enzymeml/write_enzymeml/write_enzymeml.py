@@ -44,7 +44,7 @@ class EnzymeMLwriter(Resource):
                                 attachment_filename=file_name)
 
         except Exception as error:
-            updates_path = "assets/test.omex"
+            updates_path = config["enzymeml"]["path_updated_by_biocathub_model"]
             if os.path.exists(updates_path):
                 os.remove(updates_path )
             print("Error in build process", error, "file:", __name__)
