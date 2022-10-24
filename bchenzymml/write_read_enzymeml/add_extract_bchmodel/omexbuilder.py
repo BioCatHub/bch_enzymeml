@@ -44,7 +44,8 @@ class OmexBuilder:
         with open(self.config["enzymeml"]["biocathub_model_path_local"], "w") as bch_model_file:
             bch_model_json = json.dumps(self.bch_model)
             bch_model_file.write(bch_model_json)
-            #print(self.bch_model)
+            print("mooooooooooodelk",self.bch_model)
+            print("paht", self.config["enzymeml"]["biocathub_model_path_local"])
     
     def create_omex_archive(self):
         '''
@@ -56,9 +57,10 @@ class OmexBuilder:
                 None
         '''
         try:
-            self.save_bch_model_local()
+
             if os.path.exists(self.config["enzymeml"]["biocathub_model_path_local"]):
                 os.remove(self.config["enzymeml"]["biocathub_model_path_local"])  
+            self.save_bch_model_local()
             newArchive = libcombine.CombineArchive()
             newArchive.addFile(self.config["enzymeml"]["biocathub_model_path_local"], self.config["enzymeml"]["biocathub_paht_in_omex_archive"], libcombine.KnownFormats.lookupFormat("json"))
             newArchive.writeToFile(self.config["enzymeml"]["path_updated_by_biocathub_model"])
