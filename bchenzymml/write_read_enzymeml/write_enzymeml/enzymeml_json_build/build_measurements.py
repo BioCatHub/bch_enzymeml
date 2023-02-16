@@ -34,7 +34,7 @@ class MeasurementBuilder:
             return species_dict
         
         except Exception as err:
-            # raise Exception("Error in Vessels")
+            print("Error in species building", err)
             raise
     
     
@@ -49,7 +49,7 @@ class MeasurementBuilder:
             #print(measurements_dict)
             return measurements_dict
         except Exception as Error:
-            print("something wrong with the measurements")
+            print("something wrong with the measurements", Error)
             raise MeasurementError 
 
     

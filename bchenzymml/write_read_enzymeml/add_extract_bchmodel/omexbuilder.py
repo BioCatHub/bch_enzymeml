@@ -29,6 +29,7 @@ class OmexBuilder:
         self.bch_model = bch_model
         self.config = Configurations.get_configuarations()
 
+
     
     def save_bch_model_local(self):
         '''
@@ -70,6 +71,8 @@ class OmexBuilder:
             raise
 
     def add_bch_model_to_omex_archive(self):
+        if os.path.exists("assets/enzymemlContainer"):
+            shutil.rmtree("assets/enzymemlContainer")
         if os.path.exists(self.config["enzymeml"]["biocathub_model_path_local"]):
             os.remove(self.config["enzymeml"]["biocathub_model_path_local"])
         self.save_bch_model_local()

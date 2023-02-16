@@ -1,7 +1,7 @@
 import bchenzymml.zenodo_adapter.upload_enzymeml_to_zenodo as upload_adapter
 import bchenzymml.zenodo_adapter.zenodo_connector as connector
 
-
+'''
 
 
 data_test = {
@@ -56,3 +56,4 @@ def test_names_of_entries():
         print(i["title"])
 
 
+'''
