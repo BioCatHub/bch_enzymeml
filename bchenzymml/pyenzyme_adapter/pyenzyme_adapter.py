@@ -23,7 +23,7 @@ class PyenzmeAdapter:
             try: 
                 req = requests.post("https://enzymeml.sloppy.zone/create", json.dumps(self.enzymeml_model))
             except Exception as err:
-                print("REST API call did not wokr", err)
+                print("REST API call did not work", err)
                 raise
             print("Läuft")
             try:
@@ -54,5 +54,16 @@ class PyenzmeAdapter:
         except Exception as e:
             print("Error in Adapter", e)
             raise
+
+    def send_to_pyenzyme_read(self, file):
+            try: 
+                files = {"omex_archive":open("assets/Model_4.omex", "rb")}
+                req = requests.post("https://enzymeml.sloppy.zone/read", files=files)
+                return req
+            except Exception as err:
+                print("REST API call EnzymeML read did not work", err)
+                raise
+
+
 
             
