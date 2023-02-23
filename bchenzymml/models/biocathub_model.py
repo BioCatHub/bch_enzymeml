@@ -22,3 +22,12 @@ class User(BaseModel):
     institution:Optional[str]
     lastName:Optional[str]
 
+
+class Vessel(BaseModel):
+    type: Optional[str]
+    unit: Optional[str]
+    volume:Optional[float]
+
+
+
+

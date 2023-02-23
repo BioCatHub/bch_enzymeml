@@ -1,13 +1,13 @@
-from bchenzymml.models.biocathub_model import BioCatHubModel, User
+from bchenzymml.models.biocathub_model import BioCatHubModel, Vessel
 
 
-class BuildUser:
+class BuildVessel:
     
     def __init__(self, enzml_model):
         self.enzml_model = enzml_model
 
-    def build_user(self):
+    def build_vessel(self):
         try:
-            creators = self.enzymeML["creators"]
+            vessel = self.enzymeM["vessel"]
         except:
-            print("no creators")
+            print("no vessel")

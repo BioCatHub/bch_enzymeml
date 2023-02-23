@@ -1,12 +1,13 @@
 from bchenzymml.models.biocathub_model import BioCatHubModel
 from bchenzymml.write_read_enzymeml.read_enzymeml.build_biocathub_model.build_user import BuildUser
-
+from bchenzymml.write_read_enzymeml.read_enzymeml.build_biocathub_model.build_vessel import BuildVessel
 
 class BuildBioCatHubModel(BuildUser):
 
     def __init__(self, enzml_model):
         super().__init__(enzml_model)
         self.user = self.build_user()
+        self.vessel = self.build_vessel()
     
 
     
