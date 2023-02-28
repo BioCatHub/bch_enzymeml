@@ -11,5 +11,18 @@ class BuildCondition:
         return buffer
 
     def build_condition(self):
-        condition = Condition(ph=5, temp=33, unit="°C", buffer=self.build_buffer(), others=[])
-        return condition.dict()
+        try:
+
+            reactions = self.enzml_model["reactions"]["r0"] # is the condition in the reaction enzymeml model?
+            print(reactions)
+            ph = reactions["ph"]
+            temperature = reactions["temperature"]
+            temperature_unit = reactions["temperature_unit"]
+
+
+            condition = Condition(ph=ph, temp=temperature, unit=temperature_unit, buffer=self.build_buffer(), others=[])
+            return condition.dict()
+    
+        except Exception as err:
+            print("conditions error")
+            raise
